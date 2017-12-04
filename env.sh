@@ -1,0 +1,5 @@
+export WINWIN_DB_USERNAME="root"
+export WINWIN_DB_PASSWORD=""
+export WINWIN_DB_NAME="winwin"
+export WINWIN_DB_HOST="localhost"
+export WINWIN_LOG_PATH="no"

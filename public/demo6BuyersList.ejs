@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Win Win</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js
+"></script>
+  <style type="text/css">
+    .tbl_left{
+	    padding-left: 18px !important;
+	}
+    .txt-mod{
+      text-align: center;color:#FFF;font-size: 22px;
+    }
+    .fl-right{
+      float: right;
+    }
+    .pad-spc{
+      padding-top: 11px;
+    }
+    .no-bor-radius{
+      border-radius: 0 !important;
+    }
+    .badge {
+      display: inline-block;
+      min-width: 10px;
+      padding: 10px 40px !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      line-height: 1;
+      color: #FFF !important;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-color: #337ab7 !important;
+      border-radius: 10px;
+    }
+    .navbar{
+      min-height: 60px !important;
+    }
+    .nav-tabs,.tab-content,.div-verify-btn{
+      margin: 0 20px;
+    }
+    .btn-group-justified,.table-bordered,.div-profile,.div-password,.div-invite{
+      margin: 20px 0;
+    }
+    .div-verify-btn{
+        margin-top: 20px;
+    }
+    .verify{
+        width:150px;
+    }
+    .required{color:red;}
+    .topspc{
+        margin-top: 10px;
+    }
+    .error{color:red;}
+    .pad-left{padding-left: 0px !important; }
+    .col_sm_12{width:100%;}
+    .col_sm_4{width:33%;float:left;}
+    .text-center-red{color:red;}
+    .fb_share{padding-left:160px};
+    .div-manageadmin{
+      margin: 20px 0;
+    }
+    .frmbtntopspc{margin-top:18px;}
+    #buyers{margin:0px 5px 0px 5px;}
+    .activate{color:green;}
+    .deactivate{color:red;}
+    .modaltpbtmspc{margin-left:15px; margin-top:10px;color:red;}
+    .modal-title{color:green;}
+    .bg{margin-left : 20px; margin-right : 20px ; background-color:#286090}
+    .liActive{color : white;}
+    .liActive:hover{color:rgba(255, 255, 255, 0.54)}
+    a:hover{text-decoration: none}
+  </style>
+</head>
+<body>
+  <div aria-hidden="false" class="modal fade in" id="MessageModal" role="dialog" style="display: none;" tabindex="-1">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+                  <h4 class="modal-title"><i class="fa fa-edit"></i> Message</h4>
+              </div>
+              <div class="message-modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+              </div><!-- /.modal-footer -->
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-doalog -->
+  </div>
+	<nav class="navbar navbar-inverse no-bor-radius">
+	  <div class="container-fluid pad-spc">
+	    <div class="col-sm-4">
+	      <div class="navbar-header txt-mod">
+	        Win Win
+	      </div>
+	    </div>
+	    <div class="col-sm-4 txt-mod">
+	      <span class="badge"></span>
+	    </div>
+	    <div class="col-sm-4">
+	      <div class="navbar-header txt-mod fl-right">
+	        <!-- <button type="button" class="btn btn-danger" >Log Out</button> -->
+	        <span style="font-size:12px;margin-right:15px;">Hi,<%= name%></span>
+	        <a href="/api/products/demo6AdminLogout" class="btn btn-danger">Log Out</a>
+	      </div>
+	    </div>
+	  </div>
+	</nav>
+	<!-- Begin breadcrumb -->
+    <ol class="breadcrumb info bg" >
+      <li >
+        <a href="/api/products/demo6BuyersList" class="liActive"><i class="fa fa-home"></i></a>
+      </li>
+      <li class="active" style="color:rgba(255, 255, 255, 0.54)">
+        View Buyers
+      </li>
+    </ol>
+  <!-- End Bread crumb -->
+  <% if(messages) { %>
+    <div class="col-sm-12">
+      <div class="alert alert-danger alert-block fade in alert-dismissable alerttopbtnspc" id="msg_display_area">
+        <i class="fa fa-bell"></i> <span class="alertleftspc"><%= messages %></span>
+      </div>
+    </div>
+  <% } %> 
+  <ul class="nav nav-tabs">
+    <li class=""><a data-toggle="tab"  onclick="window.location.href='/api/products/demo6AdminList'">Administrators</a></li> 
+    <li class="active"><a data-toggle="tab" href="#buyers">Buyers</a></li> 
+    <li class=""><a data-toggle="tab"  onclick="window.location.href='/api/products/demo6SellersList'">Sellers</a></li> 
+    <li class=""><a data-toggle="tab" id="recentTransaction" onclick="window.location.href='/api/products/demo6AdminListTransactions'">Transactions</a></li> 
+  </ul>
+  <div id="administrators" class="tab-pane fade">
+  </div>
+	<div id="buyers">
+		  <form action="/api/products/list_action" method="post" id="frm_btn_action" enctype="multipart/form-data">
+      	  <input type="hidden" name="btnAction" id="btnAction">
+          <div class="col-sm-12" style="margin-bottom:15px;margin-top:15px;">
+            <div class="pull-right">
+    	        <button class="btn btn-primary btn-perspective" id="btn-active" type="button"  name="Active" onclick="getbtnAction(this.name,this.id)"> Activate</button>
+              <button class="btn btn-warning btn-perspective" id="btn-inactive" type="button" name="Inactive" onclick="getbtnAction(this.name)"> Deactivate</button>
+              <button type="button" class="btn btn-success btn-perspective" onclick="window.location.href='/api/products/addBuyer'">Add</button>
+              <button class="btn btn-danger btn-perspective" id="btn-delete" type="button" name="Deleted" onclick="getbtnAction(this.name)">Delete</button>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12">
+                  <!-- Begin basic form elements -->
+                  <div class="the-box">
+                      <div class="table-responsive table-hover">
+                          <table class="table table-th-block table-dark" id="buyers_listing">
+                              <thead>
+                                  <tr style="background-color: black;color:white">
+                                  	<td width='5%'>
+                                  	<input name='check_all' type='checkbox' id="check_all"></td>
+            								      	<th width="7%">No</th> 
+                                    <th width="20%">Stripe customer id</th> 
+            								      	<th width="20%">Name</th>
+            								      	<th width="15%">Email</th>
+            								      	<th width="13%">Mobile</th>
+                                    <th width="10%">Trust Score</th>
+            								      	<th width="10%">Status</th>
+            								      	<th width="5%">Action</th>
+    						                  </tr>
+                              </thead>
+                              <tbody>
+                                <% if(fetchDetail.length>0) { %>
+            								   	    <% for(var i=0;i<fetchDetail.length;i++) {%>
+            									        <tr>
+            									        	<th><input name="iId[]" type='checkbox' value="<%= fetchDetail[i].buyer_id%>"></th>
+            										        <td><%= i+1 %></td>
+                                        <td><%= fetchDetail[i].stripe_customer_id%></td>
+            										        <td><%= fetchDetail[i].name%></td>
+            										        <td><%= fetchDetail[i].email%></td>
+            										        <td><%= fetchDetail[i].phone%></td>
+                                        <td><button type="button" style="border-radius:15px;background-color:#673ab7;border:0px;color:white; width:60px;height:30px"><%= fetchDetail[i].trust_score%></td></button>
+                                        
+            										        <% if(fetchDetail[i].status=='Active'){ %>
+                                          <td class='activate'>Active</td>
+                                      	<% } else { %>
+                                          <td class='deactivate'>Inactive</td>
+                                  		  <% } %>
+                												<td class="text-center">
+                                          <a href="/api/products/demo6EditBuyer/<%= fetchDetail[i].buyer_id%>">
+                                            <i class="fa fa-edit"></i>
+                                          </a>
+                                        </td>
+            									        </tr>
+            						        		<% } %>
+          							        <% }else { %>
+            								      <tr>
+            								        <td colspan="5">No records available.</td>
+            								      </tr>  
+          							        <% } %>
+                              </tbody>
+                          </table>
+                      </div><!-- /.table-responsive -->
+                  </div><!-- /.the-box -->
+                  <!-- End basic form elements -->
+              </div><!-- /.col-sm-12 -->
+          </div><!-- /.row -->
+      </form><!-- </form> -->		
+	</div>
+  <div id="sellers" class="tab-pane fade">
+  </div>
+  <div id="recentTransaction">
+  </div>
+    <script>
+    $(document).ready(function() {
+		$("#msg_display_area").fadeOut(3000);
+		$('#buyers_listing').DataTable( {
+	        columnDefs: [ {
+	            targets: [ 0 ],
+	            orderData: [ 0, 1 ]
+	        }, {
+	            targets: [ 1 ],
+	            orderData: [ 1, 0 ]
+	        }, {
+	            targets: [ 4 ],
+	            orderData: [ 4, 0 ]
+	        } ]
+	    } );
+	   
+	});
+	
+	function getbtnAction(value,id){
+		$('#btnAction').val(value);	
+		$("#check_all").change(function(){
+        $('input:checkbox').prop('checked', this.checked);
+	    });
+	    var atLeastOneIsChecked = $('input[name="iId[]"]:checked').length > 0;
+        if(atLeastOneIsChecked == false){
+            $(".message-modal-body").html( "<p class='modaltpbtmspc'>Please Select Atleast One Record </p>" );
+            $("#MessageModal").modal('show');
+            return false;
+        }
+        else{
+        	$('#frm_btn_action').submit();
+        }
+	}
+
+
+	</script>
+</body>
+</html>

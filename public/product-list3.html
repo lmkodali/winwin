@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> ::: Win Win ::: </title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <style type="text/css">
+      body{font-family: 'Lato', sans-sarif;}
+      .navbar-dark .navbar-brand{font-size: 1.55rem;}
+      .jumbotron{background:url(img/banner.jpg)no-repeat top center;background-size: 100%;position: relative;height: 450px;padding: 8rem 2rem;}
+      .display-3{font-size: 2.8em;}
+      .lead{width: 70%;}
+      .btn-primary {background-color: #EE163A !important;border-color: #EE163A !important;}
+      .card-text{font-weight: bold;}
+      .card-body p strike{font-weight: bold;width: 100%;float: left;color: #EE163A;
+        text-align: center;}
+      .btn-primary.focus, .btn-primary:focus{box-shadow: none !important;}
+      .card-body a{text-decoration: none;color: #212529;padding-bottom: 15px;float: left;}
+      .card-body{border-top:1px solid #cccccc;}
+      .card-body p span{font-size: 19px;}
+      .card img {height: auto;max-width: 86%;margin: 20px auto;}
+      .left-offer {font-size: 14px;color: #999999;padding-top: 30px;}
+      .free-shipping {color: #EE163A;font-size: 14px;}
+      @media screen and (max-width: 1024px){.jumbotron{padding: 2rem 1rem;height:auto;}}
+      @media (min-width: 992px){.navbar-expand-lg>.container{padding:0;}}
+      @media (min-width: 576px){.container{max-width: 100% !important;}}
+      @media screen and (max-width: 480px){.lead {width: 100%;font-size: 14px;}
+      .btn-group-lg>.btn, .btn-lg{font-size: 1rem;}
+      .display-3 {font-size: 1.5em;}
+      }
+      button {
+        cursor: pointer !important;
+      }
+      .lrspace{
+        padding: 0 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Win Win</a>
+        <div class="form-group">
+          <select class="form-control" id="iPlatFormPer" style="margin-top: 20px;cursor: pointer;">
+            <option value="0">-- Select Platform Percentage--</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+          </select>
+        </div>
+        <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_B91BheKu2IrDcWG5lXlAPzHm53nTaZQn&scope=read_write&merchant=acct_1Acp5wFfEy4b8J6e"><button type="button" class="btn btn-warning">Connect to stripe</button></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4">
+
+        <h1 class="display-3">A Warm Welcome!</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+        <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
+      </header>
+
+      <!-- Page Features -->
+      <div class="row text-center">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/oven.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">LG NN-SN686S Countertop/Microwave with Inverter Technology, 1.2 cu. ft. , Stainless</a>
+              <p><span>$600.00</span><strike>$700.00</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            <input type="hidden" name="productrate_1" value="600" id="productrate_1">
+            <div class="form-group lrspace">
+              <label for="email">Down Payment:</label>
+              <input type="text" class="form-control" id="downpayment_1">
+            </div> 
+            <div class="form-group lrspace">
+              <label>No of installment:</label>
+              <select class="form-control" id="noofinstallment_1" style="cursor: pointer;" onchange="setInstallment('1')">
+                <option value="0">-- Select No of installment--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="form-group lrspace">
+              <label>Installment Amount: <span id="perinstallmentamt_1">0</span></label>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge3" method="POST">
+                <input type="hidden" name="dAmount" value="60000">
+                <input type="hidden" name="iPercentageFees" value="0" class="iPercentageFeesCls">
+                <input type="hidden" name="dDownPayment" value="0" class="dDownPaymentCls">
+                <input type="hidden" name="iNoOfInstallment" value="0" class="iNoOfInstallmentCls">
+                <div id="stripeBtn_1">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_KgnYyEUW5CXc6ZrEamjZxKCZ"
+                    data-amount="60000"
+                    data-name="Stripe.com"
+                    data-description="Widget"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+                  </script>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/oven6.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">Panasonic LMC1575ABD Countertop Microwave Oven, Black Stainless</a>
+              <p><span>$700.00</span><strike>$800.00</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            <input type="hidden" name="productrate_2" value="700" id="productrate_2">
+            <div class="form-group lrspace">
+              <label for="email">Down Payment:</label>
+              <input type="text" class="form-control" id="downpayment_2">
+            </div> 
+            <div class="form-group lrspace">
+              <label>No of installment:</label>
+              <select class="form-control" id="noofinstallment_2" style="cursor: pointer;" onchange="setInstallment('2')">
+                <option value="0">-- Select No of installment--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Installment Amount: <span id="perinstallmentamt_2">0</span></label>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge3" method="POST">
+                <input type="hidden" name="dAmount" value="70000">
+                <input type="hidden" name="iPercentageFees" value="0" class="iPercentageFeesCls">
+                <input type="hidden" name="dDownPayment" value="0" class="dDownPaymentCls">
+                <input type="hidden" name="iNoOfInstallment" value="0" class="iNoOfInstallmentCls">
+                <div id="stripeBtn_2">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_KgnYyEUW5CXc6ZrEamjZxKCZ"
+                    data-amount="70000"
+                    data-name="Stripe.com"
+                    data-description="Widget"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+                  </script>    
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/oven3.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">IFB TH6J1575ABD Countertop Microwave Oven, Black Stainless</a>
+              <p><span>$800.00</span><strike>$900.00</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            <input type="hidden" name="productrate_3" value="800" id="productrate_3">
+            <div class="form-group lrspace">
+              <label for="email">Down Payment:</label>
+              <input type="text" class="form-control" id="downpayment_3">
+            </div> 
+            <div class="form-group lrspace">
+              <label>No of installment:</label>
+              <select class="form-control" id="noofinstallment_3" style="cursor: pointer;" onchange="setInstallment('3')">
+                <option value="0">-- Select No of installment--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Installment Amount: <span id="perinstallmentamt_3">0</span></label>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge3" method="POST">
+                <input type="hidden" name="dAmount" value="80000">
+                <input type="hidden" name="iPercentageFees" value="0" class="iPercentageFeesCls">
+                <input type="hidden" name="dDownPayment" value="0" class="dDownPaymentCls">
+                <input type="hidden" name="iNoOfInstallment" value="0" class="iNoOfInstallmentCls">
+                <div id="stripeBtn_3">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_KgnYyEUW5CXc6ZrEamjZxKCZ"
+                    data-amount="80000"
+                    data-name="Stripe.com"
+                    data-description="Widget"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+                  </script>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/oven4.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">Videocon VC8565KLDS Countertop Microwave Oven, Black Stainless</a>
+              <p><span>$900.00</span><strike>$1000.00</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            <input type="hidden" name="productrate_4" value="900" id="productrate_4">
+            <div class="form-group lrspace">
+              <label for="email">Down Payment:</label>
+              <input type="text" class="form-control" id="downpayment_4">
+            </div> 
+            <div class="form-group lrspace">
+              <label>No of installment:</label>
+              <select class="form-control" id="noofinstallment_4" style="cursor: pointer;" onchange="setInstallment('4')">
+                <option value="0">-- Select No of installment--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Installment Amount: <span id="perinstallmentamt_4">0</span></label>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge3" method="POST">
+                <input type="hidden" name="dAmount" value="90000">
+                <input type="hidden" name="iPercentageFees" value="0" class="iPercentageFeesCls">
+                <input type="hidden" name="dDownPayment" value="0" class="dDownPaymentCls">
+                <input type="hidden" name="iNoOfInstallment" value="0" class="iNoOfInstallmentCls">
+                <div id="stripeBtn_4">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_KgnYyEUW5CXc6ZrEamjZxKCZ"
+                    data-amount="90000"
+                    data-name="Stripe.com"
+                    data-description="Widget"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+                  </script>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Win Win 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $('#iPlatFormPer').on('change',function(){
+        $('.iPercentageFeesCls').val($('#iPlatFormPer').val());
+      });
+
+      function setInstallment(no){
+        if($('#downpayment_'+no).val()==''){
+          alert("Please enter down payment.");
+          $("select#noofinstallment_"+no).prop('selectedIndex', 0);
+          return false;
+        }
+        var productCost = $('#productrate_'+no).val();
+        var downPaymentCost = $('#downpayment_'+no).val();
+        $('#stripeBtn_'+no).html("<script src='https://checkout.stripe.com/checkout.js' class='stripe-button' data-key='pk_test_KgnYyEUW5CXc6ZrEamjZxKCZ' data-amount='"+(downPaymentCost*100)+"' data-name='Stripe.com' data-description='Widget' data-image='https://stripe.com/img/documentation/checkout/marketplace.png' data-locale='auto' data-zip-code='true'>");
+        $('.dDownPaymentCls').val(downPaymentCost*100);
+        var selInstallment = $('#noofinstallment_'+no).val();
+        $('.iNoOfInstallmentCls').val(selInstallment);
+        var remainingInstallmentCost = (productCost - downPaymentCost);
+        var perInstallmentCost = (remainingInstallmentCost / selInstallment);
+        $('#perinstallmentamt_'+no).text(perInstallmentCost.toFixed(2));
+      }
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,315 @@
+<html>
+
+  <head>
+    <title>WinWin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src = "https://plus.google.com/js/client:platform.js" async defer></script> -->
+  <script src="https://apis.google.com/js/plus.js?onload=init"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="631107722162-44iqf5t2q39n1pj43ibgsm15n34d806c.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  </head>
+<style>
+.profile{
+    border: 3px solid #B7B7B7;
+    padding: 10px;
+    margin-top: 10px;
+    width: 350px;
+    background-color: #F7F7F7;
+    height: 160px;
+}
+.profile p{margin: 0px 0px 10px 0px;}
+.head{margin-bottom: 10px;}
+.head a{float: right;}
+.profile img{width: 100px;float: left;margin: 0px 10px 10px 0px;}
+.proDetails{float: left;}
+</style>
+<DIV class="well" >
+  <div id="gSignIn"></div>
+</DIV>
+<script type="text/javascript">
+  function onSuccess(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    gapi.client.load('plus', 'v1', function () {
+        var request = gapi.client.plus.people.get({
+            'userId': 'me'
+        });
+        //Display the user details
+        request.execute(function (resp) {
+          console.log(resp);                                                    
+            var profileHTML = '<div class="profile"><div class="head">Welcome '+resp.name.givenName+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></div>';
+            profileHTML += '<img src="'+resp.image.url+'"/><div class="proDetails"><p>'+resp.displayName+'</p><p>'+resp.emails[0].value+'</p><p>'+resp.gender+'</p><p>'+resp.id+'</p><p><a href="'+resp.url+'">View Google+ Profile</a></p></div></div>';
+            $('.userContent').html(profileHTML);
+            $('#gSignIn').slideUp('slow');
+        });
+    });
+}
+function onFailure(error) {
+    alert(error);
+    console.log(error);
+}
+function renderButton() {
+    gapi.signin2.render('gSignIn', {
+        'scope': 'profile email https://mail.google.com/ \
+        https://www.googleapis.com/auth/gmail.modify \
+        https://www.googleapis.com/auth/gmail.readonly \
+        https://www.googleapis.com/auth/gmail.settings.basic',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+    });
+}
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $('.userContent').html('');
+        $('#gSignIn').slideDown('slow');
+    });
+}
+</script>
+
+<!-- HTML for render Google Sign-In button -->
+
+<!-- HTML for displaying user details -->
+
+<div class="userContent"></div>
+<!-- <a class="button social-account-button twitter-button button-fullwidth">Twitter
+</a> -->
+<!-- twitter login  -->
+<!-- <script type="text/javascript">   
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/anywhere.js?id="+'NhPGdDhZGSSxJZsUpAG0KRQYn';fjs.parentNode.insertBefore(js,fjs);}}(document, "script",'twitter-anywhere');   
+//describe the login actions  
+twttr.anywhere(function (T) {  
+T.bind("authComplete", function (e, user) {  
+        var token = user.attributes._identity;  
+        //define the login function on your client through Twitter  
+    });  
+});  
+//function we link to the click on the custom login button through Twitter  
+function doTWSignIn() {  
+    twttr.anywhere(function (T) {  
+        T.signIn();  
+    });  
+}  
+</script> -->
+<!-- End twitter login -->
+  
+
+
+  <body>
+      <div id="gConnect" class="button">
+      <!-- https://www.googleapis.com/auth/user.birthday.read  
+              https://www.googleapis.com/auth/user.addresses.read 
+              https://www.googleapis.com/auth/profile.agerange.read 
+              https://www.googleapis.com/auth/gmail.settings.basic 
+              https://www.googleapis.com/auth/gmail.modify
+              https://www.googleapis.com/auth/gmail.readonly 
+              profile email https://www.googleapis.com/auth/userinfo.profile
+              https://www.googleapis.com/auth/plus.login 
+              https://mail.google.com/
+              -->
+       <!-- <button class="g-signin"
+            data-scope=" 
+              https://www.googleapis.com/auth/userinfo.email
+              
+              https://www.googleapis.com/auth/gmail.settings.basic "
+            data-clientid="631107722162-44iqf5t2q39n1pj43ibgsm15n34d806c.apps.googleusercontent.com"
+            data-callback="onSignInCallback"
+            data-theme="dark"
+            data-cookiepolicy="single_host_origin">
+        </button>
+        <div id='details'>
+        </div>
+        <a href="#" onclick="signOut();" class="btn btn-danger">Sign out</a> 
+    </div>
+    <script>
+      function onSignInCallback(resp) {
+        gapi.client.load('plus', 'v1', apiClientLoaded);
+      }
+      function apiClientLoaded() {
+        gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+      }
+      function handleEmailResponse(resp) {
+        console.log(resp);
+        var primaryEmail;
+        for (var i=0; i < resp.emails.length; i++) {
+          if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
+        }
+            var response=JSON.stringify(resp);
+            console.log(resp);
+            return false;
+            document.getElementById('details').innerHTML+="Birthday : "+resp.birthday+'<br>';
+            document.getElementById('details').innerHTML="Gender : "+resp.gender+'<br>';
+            document.getElementById('details').innerHTML+="Birthday : <br>"+resp.birthday;
+            document.getElementById('details').innerHTML+="Kind : "+resp.kind+'<br>';
+            document.getElementById('details').innerHTML+='Emails : '+resp.emails[0].value+'<br>';
+            document.getElementById('details').innerHTML+="id :"+resp.id+'<br>';
+            document.getElementById('details').innerHTML+="displayName :"+resp.displayName+'<br>';
+            document.getElementById('details').innerHTML+="Family Name :"+resp.name.familyName+'<br>';
+            document.getElementById('details').innerHTML+="Given Name :"+resp.name.givenName+'<br>';
+            document.getElementById('details').innerHTML+="url :"+resp.url+'<br>';
+            document.getElementById('details').innerHTML+="isPlusUser :"+resp.isPlusUser+'<br>';
+            document.getElementById('details').innerHTML+="language :"+resp.language+'<br>';
+            document.getElementById('details').innerHTML+="circledByCount :"+resp.circledByCount+'<br>';
+            document.getElementById('details').innerHTML+="verified :"+resp.verified+'<br>';
+            document.getElementById('details').innerHTML+="Image:"+'<img src='+resp.image.url+' width="50px" height="50px">'+'<br>';
+           document.getElementById('details').innerHTML+=response;
+      }-->
+    </script>
+</body>
+
+<!-- fb Login -->
+<!-- <div style="width:50%;float:right">
+ <div class="sign_fb"><a href="javascript:void(0);"><img alt="" src="/img/fb-logo-signup.png"  style="height:50px;" id="fbLogin"  scope="public_profile,email,user_posts,user_likes,user_birthday"></a></div>
+  
+     <script type="text/javascript">
+        $("#fbLogin").click(function(){
+          function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            if (response.status === 'connected') {
+              testAPI();
+              }
+            else {
+              FB.login(function(response) {
+                // handle the response
+              }, {scope: 'email,user_likes,user_birthday,user_posts'});
+              document.getElementById('status').innerHTML = 'Please log ' +'into this app.';    }
+            }
+          function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+          });
+          }
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '1841728819452246',
+              cookie     : true,  // enable cookies to allow the server to access the session
+              xfbml      : true,  // parse social plugins on this page
+              version    : 'v2.8' // use graph api version 2.8
+            });
+          FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+          });
+        };
+        // Load the SDK asynchronously
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        function testAPI() {
+          console.log('Welcome!  Fetching your information.... ');
+            // FB.api('/me', function(response) {
+              // id,about,age_range,picture,bio,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work
+          FB.api('/me/?fields=id,birthday,friendlists{id,name},likes,posts,about,picture,verified,age_range,context,hometown,location,timezone,website,work,email,gender,middle_name,first_name,last_name', function(response) { 
+              console.log('Successful login for: ' + response.first_name);
+              console.log(JSON.stringify(response)); 
+              console.log("birthday"+response.birthday);
+              console.log("user_friends");
+              document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.first_name + '!';
+              Username=response.first_name+" "+response.last_name;
+              UserFbid=response.id;
+              userEmail = response.email;
+              console.log("context");
+            document.getElementById('status').innerHTML+="<br>id : "+response.id+"<br>";
+            document.getElementById('status').innerHTML+="Birthday : "+response.birthday+"<br>";
+            document.getElementById('status').innerHTMl+='likes : ' +response.likes+"<br>";          
+            document.getElementById('status').innerHTML+="First Name :"+response.first_name+'<br>';
+            document.getElementById('status').innerHTML+="Last Name :"+response.last_name+'<br>';
+            document.getElementById('status').innerHTML+="Gender :"+response.gender+'<br>';
+            document.getElementById('status').innerHTML+="Email :"+response.email+'<br>';
+            document.getElementById('status').innerHTML+="Verified :"+response.verified+'<br>';
+            document.getElementById('status').innerHTML+="TimeZone :"+response.timezone+'<br>';
+            document.getElementById('status').innerHTML+="age_range :"+response.age_range.min+""+response.age_range.max+'<br>';
+          });
+        }
+      });
+    </script>
+    <div id="status">
+    </div>
+</div>
+<div id="fb-root"></div>
+ -->
+ 
+<script>
+   
+
+
+
+   // function statusChangeCallback(response) {
+   //      console.log('statusChangeCallback');
+   //      console.log(response);
+   //      if (response.status === 'connected') {
+   //        testAPI();
+   //        }
+   //      else {
+   //        // FB.login();
+   //        FB.login(function(response) {
+   //        if (response.authResponse) {
+   //            window.location.reload();
+   //        }
+   //    }, {scope:'email,user_photos,user_friends'});
+   //        document.getElementById('status').innerHTML = 'Please log ' +'into this app.';    }
+   //      }
+   //    function checkLoginState() {
+   //      FB.getLoginStatus(function(response) {
+   //        statusChangeCallback(response);
+   //    });
+   //    }
+   //    window.fbAsyncInit = function() {
+   //      FB.init({
+   //        appId      : '2077486339149532',
+   //        cookie     : true,  // enable cookies to allow the server to access the session
+   //        xfbml      : true,  // parse social plugins on this page
+   //        version    : 'v2.11' // use graph api version 2.8
+   //      });
+   //    FB.getLoginStatus(function(response) {
+   //        statusChangeCallback(response);
+   //    });
+   //  };
+    // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    // function testAPI() {
+    //     console.log('Welcome!  Fetching your information.... ');
+    //     // FB.api('/me', function(response) {
+    //       // id,about,age_range,picture,bio,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work
+    //   FB.api('/me?fields=id,albums,friends.limit(15)', function(response) { 
+    //       console.log('Successful login for: ' + response.first_name);
+    //       console.log(JSON.stringify(response)); 
+    //       // document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
+    //       //      if(response.data) {
+    //       //         $.each(response.data,function(index,friend) {
+    //       //             alert(friend.name + ' has id:' + friend.id);
+    //       //         });
+    //       //     } else {
+    //       //         /*alert("Error!");
+    //           }
+    //       document.getElementById('data').innerHTML="<h1>Response</h1><br>Total friends : "+response.friends.summary.total_count;
+
+    //       document.getElementById('data').innerHTML+="<h1>Response</h1><br>"+response.friends.data[name];
+    //       document.getElementById('data').innerHTML+="<h1>Response</h1><br>"+response.friends.data.first_name;
+    //       document.getElementById('data').innerHTML+="<h1>Response</h1><br>"+response.friends.data[0].id;
+    //       $.each(response.friends.data,function(index,friend) {
+    //         console.log(friend);
+    //           alert("Friend name"+friend.name + ' has id:' + friend.id);
+    //       });
+    //   });
+    // }
+</script>
+<!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+<div id="data"></div> -->
+ </body></html>

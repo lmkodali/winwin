@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> ::: Win Win ::: </title>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <style type="text/css">
+      body{font-family: 'Lato', sans-sarif;}
+      .navbar-dark .navbar-brand{font-size: 1.55rem;}
+      .jumbotron{background:url(img/banner.jpg)no-repeat top center;background-size: 100%;position: relative;height: 450px;padding: 8rem 2rem;}
+      .display-3{font-size: 2.8em;}
+      .lead{width: 70%;}
+      .btn-primary {background-color: #EE163A !important;border-color: #EE163A !important;}
+      .card-text{font-weight: bold;}
+      .card-body p strike{font-weight: bold;width: 100%;float: left;color: #EE163A;
+        text-align: center;}
+      .btn-primary.focus, .btn-primary:focus{box-shadow: none !important;}
+      .card-body a{text-decoration: none;color: #212529;padding-bottom: 15px;float: left;}
+      .card-body{border-top:1px solid #cccccc;}
+      .card-body p span{font-size: 19px;}
+      .card img {height: auto;max-width: 86%;margin: 20px auto;}
+      .left-offer {font-size: 14px;color: #999999;padding-top: 30px;}
+      .free-shipping {color: #EE163A;font-size: 14px;}
+      @media screen and (max-width: 1024px){.jumbotron{padding: 2rem 1rem;height:auto;}}
+      @media (min-width: 992px){.navbar-expand-lg>.container{padding:0;}}
+      @media (min-width: 576px){.container{max-width: 100% !important;}}
+      @media screen and (max-width: 480px){.lead {width: 100%;font-size: 14px;}
+      .btn-group-lg>.btn, .btn-lg{font-size: 1rem;}
+      .display-3 {font-size: 1.5em;}
+      }
+      button {
+        cursor: pointer !important;
+        background-color: #EE163A !important;
+        border: none;
+        color: #FFF;
+      }
+       .lrspace{
+        padding: 0 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var msg=location.search.split('msg=')[1];
+        console.log(msg);
+        if(msg!=''){
+        msg=msg.replace('%22','');
+        msg=msg.replace('%22','');
+        alert(msg);
+       } 
+      });
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Win Win Micro Transaction ( Real A/C )-1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <!-- Page Features -->
+      <div class="row text-center">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/led1.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">Panasonic 65 inch LED - S19F350HNW Monitor (Black)</a>
+              <p><span>$1.00</span><strike>$1.20</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge5" method="POST">
+                <input type="hidden" name="dAmount" value="100">
+                <input type="hidden" name="routingNumber" value="" class="routingNumber">
+                <input type="hidden" name="accountNumber" value="" class="accountNumber">
+                <input type="hidden" name="accountHolderName" value="" class="accountHolderName">
+                <input type="hidden" name="accountHolderType" value="" class="accountHolderType">
+
+                <a href="#" class="btn btn-primary btn-lg" id="linkButton1"><button type="submit" onclick="return checkData('1')">Buy Now</button></a>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/led4.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">Sony 42 inch HD Ready LED TV Black</a>
+              <p><span>$1.00</span><strike>$1.80</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+            
+            <div class="form-group lrspace">
+              <label>Account Holder Type</label>
+              <select class="form-control" id="account_holder_type2" style="cursor: pointer;" onchange="return checkData('2')" ><!-- onchange="setInstallment('1')" -->
+                <option value="1">Individual</option>
+                <option value="2">Company</option>
+              </select>
+            </div>
+
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge5" method="POST">
+                <input type="hidden" name="dAmount" value="100">
+                <input type="hidden" name="routingNumber" value="" class="routingNumber">
+                <input type="hidden" name="accountNumber" value="" class="accountNumber">
+                <input type="hidden" name="accountHolderName" value="" class="accountHolderName">
+                <input type="hidden" name="accountHolderType" value="" class="accountHolderType">
+                <a href="#" class="btn btn-primary btn-lg" id="linkButton2"><button type="submit" onclick="return checkData('2')">Buy Now</button></a>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/led2.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">LG 48 inch HD Ready LED Smart TV Silver</a>
+              <p><span>$1.00</span><strike>$1.50</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+             <div class="form-group lrspace">
+              <label for="routing_number3">Routing Number</label>
+              <input type="text" class="form-control" id="routing_number3">
+            </div> 
+            <div class="form-group lrspace">
+              <label for="account_number3">Account Number</label>
+              <input type="text" class="form-control" id="account_number3">
+            </div> 
+            <div class="form-group lrspace">
+              <label for="account_holder_name3">Account Holder Name</label>
+              <input type="text" class="form-control" id="account_holder_name3">
+            </div> 
+            <div class="form-group lrspace">
+              <label>Account Holder Type</label>
+              <select class="form-control" id="account_holder_type3" style="cursor: pointer;" onchange="return checkData('3')" ><!-- onchange="setInstallment('1')" -->
+                
+                <option value="1">Individual</option>
+                <option value="2">Company</option>
+              </select>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge5" method="POST">
+                <input type="hidden" name="dAmount" value="100">
+                <input type="hidden" name="routingNumber" value="" class="routingNumber">
+                <input type="hidden" name="accountNumber" value="" class="accountNumber">
+                <input type="hidden" name="accountHolderName" value="" class="accountHolderName">
+                <input type="hidden" name="accountHolderType" value="" class="accountHolderType">
+                <a href="#" class="btn btn-primary btn-lg" id="linkButton3"><button type="submit" onclick="return checkData('3')">Buy Now</button></a>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/led5.jpg" alt="">
+            <div class="card-body">
+              <a href="#" class="card-text">Samsung NXT 62 inch HD Ready LED TV</a>
+              <p><span>$1.00</span><strike>$1.60</strike></p>
+              <span class="text-warning">★ ★ ★ ★ ☆</span>
+              <p class="left-offer">Only 9 left in stock - order soon.</p>
+              <p class="free-shipping">FREE Shipping on eligible orders</p>
+            </div>
+             <div class="form-group lrspace">
+              <label for="routing_number4">Routing Number</label>
+              <input type="text" class="form-control" id="routing_number4">
+            </div> 
+            <div class="form-group lrspace">
+              <label for="account_number4">Account Number</label>
+              <input type="text" class="form-control" id="account_number4">
+            </div> 
+            <div class="form-group lrspace">
+              <label for="account_holder_name4">Account Holder Name</label>
+              <input type="text" class="form-control" id="account_holder_name4">
+            </div> 
+            <div class="form-group lrspace">
+              <label>Account Holder Type</label>
+              <select class="form-control" id="account_holder_type4" style="cursor: pointer;" onchange="return checkData('4')"><!-- onchange="setInstallment('1')" -->
+                
+                <option value="1">Individual</option>
+                <option value="2">Company</option>
+              </select>
+            </div>
+            <div class="card-footer">
+              <form action="/api/products/stripe-charge5" method="POST">
+                <input type="hidden" name="dAmount" value="100">
+                <input type="hidden" name="routingNumber" value="" class="routingNumber">
+                <input type="hidden" name="accountNumber" value="" class="accountNumber">
+                <input type="hidden" name="accountHolderName" value="" class="accountHolderName">
+                <input type="hidden" name="accountHolderType" value="" class="accountHolderType">
+                <a href="#" class="btn btn-primary btn-lg" id="linkButton4"><button type="submit" onclick="return checkData('4')">Buy Now</button></a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Win Win 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function checkData(no){
+        var routingNumber = $('#routing_number'+no).val();  
+        var accountNumber = $('#account_number'+no).val();
+        var accountHolderName = $('#account_holder_name'+no).val();
+        var accountHolderType = $( "#account_holder_type"+no+" option:selected" ).text();
+                          
+        var err="";
+        if(routingNumber.trim() ==''){
+        var err1 = "Enter Routing Number ";
+        }
+        else{err1="";}
+        if(accountNumber.trim() ==''){
+        var err2 = 'Enter Account Number ';
+        }
+        else{err2="";}
+        if(accountHolderName.trim() == ''){
+        var err3 = 'Enter Account holder Name ';
+        }
+        else{err3="";}
+        if(accountHolderType.trim() == 0){
+        var err4 = 'Select Account Holder Type ';
+        }
+        else{err4="";}
+        if(err1=='' && err2 =='' && err3=='' && err4==''){
+            $('.routingNumber').val(routingNumber);
+            $('.accountNumber').val(accountNumber);
+            $('.accountHolderName').val(accountHolderName);
+            $('.accountHolderType').val(accountHolderType);
+        }
+        else{
+           alert(err1+" \n"+err2+"\n"+err3+"\n"+err4);
+           return false;
+        }
+    
+}
+    </script>  
+  </body>
+
+</html>

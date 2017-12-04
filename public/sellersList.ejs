@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js">   -->
+	<style type="text/css">
+@CHARSET "UTF-8";
+/*
+over-ride "Weak" message, show font in dark grey
+*/
+
+.progress-bar {
+    color: #333;
+} 
+
+/*
+Reference:
+http://www.bootstrapzen.com/item/135/simple-login-form-logo/
+*/
+
+* {
+    -webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	outline: none;
+}
+
+    .form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		@include box-sizing(border-box);
+
+		&:focus {
+		  z-index: 2;
+		}
+	}
+
+body {
+	background: url(http://i.imgur.com/GHr12sH.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.login-form {
+	margin-top: 60px;
+}
+
+	form[role=login] {
+		color: #5d5d5d;
+		background: #f2f2f2;
+		padding: 26px;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+	}
+	form[role=login] img {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 35px;
+	}
+	form[role=login] input,
+	form[role=login] button {
+		font-size: 18px;
+		margin: 16px 0;
+	}
+	form[role=login] > div {
+		text-align: center;
+	}
+	
+	.form-links {
+		text-align: center;
+		margin-top: 1em;
+		margin-bottom: 50px;
+	}
+	.form-links a {
+		color: #fff;
+	}
+	.padTopSpc{
+		padding-top: 35px !important;
+	}
+	.error{
+		color:red;
+		font-weight:900;
+	}
+	.frmData{
+		padding-top:18px;
+	}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+	  	<div class="row" id="pwd-container">
+		    <div class="col-md-1"></div>
+		    <div class="col-md-10">
+		      	<section class="login-form">
+		        	<form method="get" action="#" role="login">
+		          		<h2 class='text-center'>WinWin Sellers</h2>
+		          		<% if(messages) {%>
+		          		<div class="alert alert-danger" style="margin-bottom: 0px !important">
+		          			<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+							<%= messages %>  	
+						</div>
+		          		<% } %>
+		          		<!-- <button type="button" name="addBankAccount"  id="addBankAccount" class="btn btn-primary " onclick="loadModal('bank_account','','')">Add Bank Account</button> -->
+		          		<a href="/api/products/demo6Logout">
+		          		<button type="button" class="btn btn-success">Log out</button>
+		          		</a><br>		          		
+		          		Total <label><%= sellers.length%></label> Sellers Available<br>
+	          			<table class="table table-striped " id="tblSellers">
+					    	<thead>
+					      		<tr>
+					      			<th>No.</th>
+					        		<th>Name</th>
+					        		<th>Email</th>
+					        		<th>Rating</th>
+					        	</tr>
+					    	</thead>
+					    	<tbody>
+					    		<% if(sellers.length==0){%>
+						    		<tr>
+								    	<td colspan="4">No record found.</td>
+								  	</tr> 
+					    		<% } else{ 
+					    			for(var i = 0;i < sellers.length ; i++){ %>
+						    			<tr>
+						    			<td style="padding-top:18px"><%=(i+1)%></td>
+						    			<td style="padding-top:18px"><%=sellers[i].fname%>&nbsp;<%=sellers[i].lname%></td>
+						    			<td style="padding-top:18px"><%=sellers[i].email%></td>
+						    			<td>
+						    				<button type="button" value="" id="<%=sellers[i].email%>" class="btn btn-primary rateBtn" style="margin:0px;border:0px;" onclick="loadModal('ratings','',this.id)">
+						    					Rate Now ?				
+						    				</button>
+						    			</td>
+						    			</tr>					    			
+					    			<% } %>
+					    		<% } %>
+							</tbody>
+					  	</table>
+					</form>
+		      	</section>  
+		    </div>
+		    <div class="col-md-1"></div>
+		</div>
+	</div>
+	<!-- Modal -->
+    <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+       aria-labelledby = "myModalLabel" aria-hidden = "true">
+       <div class = "modal-dialog">
+          <div class = "modal-content">
+             <div class = "modal-header">
+                <h4 class = "modal-title text-center" id="myModalLabel">
+                    Ratings
+                </h4>
+                <button type = "button btn-close" class = "close" data-dismiss = "modal" aria-hidden = "true" id="close">
+                   ×
+                </button>
+             </div>
+             <div class = "modal-body">
+	            <form action="/api/products/demo6AddComment" method="post">
+				  <div class="form-group">
+				    <label>Message : </label>
+				    <textarea class="form-control" id="comment" name="comment" placeholder="Enter Comment Here...." rows="5"></textarea>
+				    <span class='error' id="errComment"></span>
+				  </div>
+				  <input type="hidden" class="comment" >
+				  <input type="hidden" class="seller" name="seller">
+				  <button type="submit" class="btn btn-success" id="addComment">Submit Comment</button>
+				  <button type="button" data-dismiss ="modal" class="btn btn-danger" id="closeComment">Close</button>
+				</form>
+			</div>
+          </div><!-- /.modal-content -->
+       </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Modal -->
+    <div class = "modal fade" id = "myNewBankAccount" tabindex = "-1" role = "dialog" 
+       aria-labelledby = "myModalLabel" aria-hidden = "true">
+       <div class = "modal-dialog">
+          <div class = "modal-content">
+             <div class = "modal-header">
+                <h4 class = "modal-title text-center" id="myModalLabel">
+                   <b> Bank Account Details</b>
+                </h4>
+                <button type = "button btn-close" class = "close" data-dismiss = "modal" aria-hidden = "true" id="close">
+                   ×
+                </button>
+             </div>
+             <div class = "modal-body">
+	           
+			</div>
+          </div><!-- /.modal-content -->
+       </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script type="text/javascript">
+    	function loadModal(type,num,id){
+    		if(type=='ratings'){
+    			var seller=id;
+    			$('#myModal').modal('show');
+    			$('.seller').val(seller);
+    		}    		
+    	}
+    // function goBuyDashboard(id)
+    // {
+    // 	var bank_acc_id=id;
+    // 	$.ajax({
+		  // type:'POST',
+		  // url: '/api/products/buynow_dashboard',
+		  // data: {
+		  // 	id:bank_acc_id},
+		  // success: function(data){
+		  // 	window.location.href='/demo5';return false;
+		  // },
+		  // error: function(error) {
+		  // }
+		  // });
+    // }
+		$(document).ready(function(){	
+		 	$('#addComment').click(function(){
+				var comment=$('#comment').val();
+				if(comment==""){
+					$('#errComment').html("Please Enter Comment.");
+					return false;
+				}
+				else{
+					$('.comment').val($('#comment').val());
+				}				
+			});
+			$('#closeComment').click(function(){
+				$('#comment').val("");
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> ::: Win Win ::: </title>
+    <!-- Bootstrap core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <style type="text/css">
+        body{
+            padding:0px;
+        }        
+        .right{
+            
+        }
+    </style>
+
+    
+    
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container" style="margin-left:20px;margin-right:20px;">
+        <a class="navbar-brand" href="#">Win Win Trust score Demo</a>
+        <a href="" style="color:white">Your Trust Score is :&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary" style="border-radius: 15px;"> 1</button> 
+        <a href="/api/products/demo6Logout" class="right">
+            <button type="button" class="btn btn-danger">Log out</button>
+        </a>
+           
+
+        </button></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <ul  class="nav nav-pills">
+        <li class="active">
+            <a  href="#1b" data-toggle="tab" class="tab active">Profile</a>
+        </li>
+        <li>
+            <a href="#2b" data-toggle="tab" class="tab">Bank Accounts</a>
+        </li>
+        <li>
+            <a href="#3b" data-toggle="tab" class="tab">Credit cards</a>
+        </li>
+        <li>
+            <a href="#4a" data-toggle="tab" class="tab">Plaid</a>
+        </li>
+    </ul>
+
+    <br>    
+    <div class="tab-content clearfix" style="padding-left:10px">
+        <!-- Begin Profile tab -->
+        <div class="tab-pane active" id="1b">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                            <b>Name </b>
+                            <input type="text" value="<%= name %>" name="name" id="name" class="form-control" >
+                        </div>  
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <b>Email </b>
+                        <input type="text" value="<%= email%>" class="form-control"  name="email" id="email">
+                         </div> 
+                    </div> 
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <b>Mobile </b>
+                            <input type="text" value="<%= phone %>" class="form-control"  name="mobile" id="mobile">
+                        </div>  
+                    </div> 
+                </div>    
+            </div> 
+            <div class="row"> 
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <b class="pad_top">Address </b>
+                            <textarea class="form-control" rows="3" id="address" name="address" placeholder="Your Address"></textarea>
+                        </div>  
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <b class="pad_top">Country </b>
+                            <input type="text" value="" class="form-control"  id="country" placeholder="Your Country">
+                        </div>  
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                             <b>City </b>
+                             <input type="text" value="" class="form-control"  name="city" id="city" placeholder="Your City">
+                        </div> 
+                    </div> 
+                </div>
+            </div>    
+            <div class="row"> 
+              <div class="col-sm-12">
+                <div class="col-sm-4">
+                        <div class="form-group">
+                            <b>Zip Code </b>
+                            <input type="text" value="" class="form-control"  name="zipCode" id="zipCode" placeholder="Enter Zip code here.">
+                        </div> 
+                    </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <b class="pad_top">Uniqueid </b>
+                    <input type="text" value="" class="form-control"  name="uniqueId" id="uniqueId" placeholder="Your SSN / Licenlicense no. / Photo id">
+                  </div>  
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <b class="pad_top">Stripe Customer Id </b>
+                    <input type="text" value="<%= stripe_customer_id %>" class="form-control"   name="stripe_cust_id" value="stripe_cust_id" readonly>
+                  </div>  
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                      <br>
+                      <button type="button" class="btn btn-success">Verify Email</button>
+                      <button type="button" class='btn btn-warning'>Verify OTP</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <!-- Begin Bank accounts tab -->
+        <div class="tab-pane" id="2b">
+            <div class="col-md-10">
+                 <section class="login-form">
+                    <form method="get" action="varificationForm.html" role="login">
+                    <br>
+                    <!-- <h2 class='text-center'>WinWin Bank Accounts</h2> -->
+                    <% if(messages) { %>
+                    <div class="alert alert-danger" style="margin-bottom: 0px !important">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                        <%= messages %>     
+                    </div>
+                    <% } %>
+                    <button type="button" name="addBankAccount"  id="addBankAccount" class="btn btn-primary " onclick="loadModal('bank_account','','')">Add Bank Account
+                    </button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Routing Number</th>
+                                <th>Account Number</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                  
+                        </tbody>
+                    </table>
+                </form>
+                <!-- Micro Deposit Modal -->
+                    <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+                       aria-labelledby = "myModalLabel" aria-hidden = "true">
+                       <div class = "modal-dialog">
+                            <div class = "modal-content">
+                                 <div class = "modal-header">
+                                    <h4 class = "modal-title text-center" id="myModalLabel">
+                                        Micro-deposit amounts in cents
+                                    </h4>
+                                <button type = "button btn-close" class = "close" data-dismiss = "modal" aria-hidden = "true" id="close">
+                                   ×
+                                </button>
+                             </div>
+                             <div class = "modal-body">
+                                <form action="/api/products/bank-verify" method="post">
+                                    <div class="form-group">
+                                        <label>First Deposit:</label>
+                                        <input type="text" class="form-control" id="first_deposit" name="first_deposit" placeholder="Amount 1">
+                                        <span class='error' id="errDeposit1"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Second Deposit:</label>
+                                        <input type="text" class="form-control" id="second_deposit" name="second_deposit" placeholder="Amount 2">
+                                        <span class='error' id="errDeposit2"></span>
+                                    </div>
+                                    <button type="button" data-dismiss ="modal" class="btn btn-danger" id="closeVerify">Close</button>
+                                      <input type="hidden" value="" name="bank_full_acc" id="bank_full_acc">
+                                      <input type="hidden" name="bank_acc" value='' id="bank_acc">
+                                      <input type="hidden" name="bank_acc_id" value="" id="bank_acc_id">
+                                      <button type="submit" class="btn btn-success" id="verify_deposits">Verify</button>
+                                </form>
+                            </div>
+                         </div><!-- /.modal-content -->
+                    </div>
+                <!-- /.modal-dialog -->
+                </div><!-- /End micro deposit modal -->
+                <!-- Begin add new bank account Modal -->
+                    <div class = "modal fade" id = "myNewBankAccount" tabindex = "-1" role = "dialog" 
+                       aria-labelledby = "myModalLabel" aria-hidden = "true" style="position:center">
+                       <div class = "modal-dialog" style="top:160px">
+                          <div class = "modal-content">
+                             <div class = "modal-header">
+                                <h4 class = "modal-title text-center" id="myModalLabel">
+                                   <b> Bank Account Details</b>
+                                </h4>
+                                <button type = "button btn-close" class = "close" data-dismiss = "modal" aria-hidden = "true" id="close">
+                                   ×
+                                </button>
+                             </div>
+                             <div class = "modal-body">
+                                <!-- <form action="/api/products/addBankAccount" method="post"> -->
+                                <form action="#" method="post">
+                                    <input type="hidden" name="buyer_id" value="" id="buyer_id">
+                                    <div class="form-group lrspace">
+                                      <label for="routing_number1">Routing Number</label>
+                                      <input type="text" class="form-control" id="routing_number">
+                                      <span class="error" id="errRoutingNumber"></span>
+                                    </div> 
+                                    <div class="form-group lrspace">
+                                      <label for="account_number1">Account Number</label>
+                                      <input type="text" class="form-control" id="account_number">
+                                      <span class="error" id="errAccNumber"></span>
+                                    </div> 
+                                    <div class="form-group lrspace">
+                                      <label for="account_holder_name1">Account Holder Name</label>
+                                      <input type="text" class="form-control" id="account_holder_name">
+                                      <span class="error" id="errAccHolderName"></span>
+                                    </div> 
+                                    <div class="form-group lrspace">
+                                      <label>Account Holder Type</label>
+                                      <select class="form-control" id="account_holder_type" style="cursor: pointer; padding:0px;height:30px;" >
+                                        <option value='0'>--Select Account Type--</option>
+                                        <option value="1">Individual</option>
+                                        <option value="2">Company</option>
+                                      </select>
+                                      <span class="error" id="errAccHolderType"></span>
+                                    </div>
+                                    <input type="hidden" name="routing_no" value="" class="routing_no">
+                                    <input type="hidden" name="acc_number" value="" class="acc_number">
+                                    <input type="hidden" name="acc_holder_type" value="" class="acc_holder_type">
+                                    <input type="hidden" name="acc_holder_name" value="" class="acc_holder_name">
+                                  <button type="button" data-dismiss ="modal" class="btn btn-danger" id="cancelBankDetails">Cancel</button>
+                                  <button type="button" onclick="alert('Page under development');" class="btn btn-success" id="addBankDetails">Add bank account</button>
+                                </form>
+                            </div>
+                          </div><!-- /.modal-content -->
+                       </div><!-- /.modal-dialog -->
+                    </div>
+                <!-- add new bank account Modal -->
+            </section>  
+            </div>
+        </div>
+        <!-- Begin Credit cards page -->
+        <div class="tab-pane" id="3b">
+            <button type="button" name="addCreditCard"  id="addCreditCard" class="btn btn-primary " onclick="loadModal('credit_card','','')">Add Credit Card
+            </button>
+            <table class="table" width="80%">
+                <thead>
+                    <tr>
+                        <th>Card No</th>
+                        <th>CVC</th>
+                        <th>Validate Thru</th>
+                        <!-- <th>Status</th> -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>4242424242424242</td>
+                    <td>123</td>
+                    <td>09/35</td>
+                    <td><button class="btn btn-success">Buy Now?</button></td>
+                </tbody>
+            </table>
+            <!-- Begin add new Card Modal -->
+                    <div class = "modal fade" id = "myNewCard" tabindex = "-1" role = "dialog" 
+                       aria-labelledby = "myModalLabel" aria-hidden = "true" style="position:center">
+                       <div class = "modal-dialog" style="top:160px">
+                          <div class = "modal-content">
+                             <div class = "modal-header">
+                                <h4 class = "modal-title text-center" id="myModalLabel">
+                                   <b> Credit Card Details</b>
+                                </h4>
+                                <button type = "button btn-close" class = "close" data-dismiss = "modal" aria-hidden = "true" id="close">
+                                   ×
+                                </button>
+                             </div>
+                             <div class = "modal-body">
+                                <!-- <form action="/api/products/addBankAccount" method="post"> -->
+                                <form action="#" method="post">
+                                    <input type="hidden" name="buyer_id" value="" id="buyer_id">
+                                    <div class="form-group lrspace">
+                                      <label for="card_number">Card Number</label>
+                                      <input type="text" class="form-control" id="card_number" placeholder="Card Number">
+                                      <span class="error" id="errCardNumber"></span>
+                                    </div> 
+                                    <div class="form-group lrspace">
+                                      <label for="">Valid Thru</label>
+                                      <input type="text" class="form-control" id="mm" placeholder="MM" name="yy">
+                                      <input type="text" class="form-control" id="yy" placeholder="YY" name="yy">
+                                      <span class="error" id="errMM"></span>
+                                    </div> 
+                                    <div class="form-group lrspace">
+                                      <label for="account_holder_name1">CVC</label>
+                                      <input type="text" class="form-control" id="cvc" name="cvc" placeholder="CVC">
+                                      <span class="error" id="errCVC"></span>
+                                    </div> 
+                                    <input type="hidden" name="cardNumber" value="" class="cardNumber">
+                                    <input type="hidden" name="endMonth" value="" class="endMonth">
+                                    <input type="hidden" name="endYear" value="" class="endYear">
+                                    <input type="hidden" name="acc_holder_name" value="" class="acc_holder_name">
+                                  <button type="button" data-dismiss ="modal" class="btn btn-danger" id="cancelCardDetails">Cancel</button>
+                                  <button type="button" onclick="alert('Page under development');" class="btn btn-success" id="addCardDetails">Add bank account</button>
+                                </form>
+                            </div>
+                          </div><!-- /.modal-content -->
+                       </div><!-- /.modal-dialog -->
+                    </div>
+                <!-- add new bank account Modal -->
+        </div>
+        <!-- End Credit cards page -->
+        <!-- Begin Plaid page -->
+        <div class="tab-pane" id="4a">
+            <h3>No Plaid Accounts Available.</h3>
+        </div>
+        <!-- End plaid Page -->
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+     <!-- Bootstrap core JavaScript -->
+     
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function loadModal(type,num,id){
+            if(type=='bank_account'){
+                $('#myNewBankAccount').modal('show');
+            }
+            else if(type=="credit_card"){
+                $('#myNewCard').modal('show');
+            }
+            else {
+                var num=num;
+                var num1=num.slice(-4);
+                $('#bank_full_acc').val(num);
+                $('#bank_acc').val(num);
+                $('#bank_acc_id').val(id);
+                $('#myModal').modal('show');
+            }
+        }
+    </script>
+    
+  </body>
+
+</html>

@@ -1,0 +1,11 @@
+{"web":
+	{"client_id":"239898980507-epk60mc9179gumtnc6n8ftrvvijc61uo.apps.googleusercontent.com",
+	"project_id":"sunlit-virtue-184712",
+	"auth_uri":"https://accounts.google.com/o/oauth2/auth",
+	"token_uri":"https://accounts.google.com/o/oauth2/token",
+	"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+	"client_secret":"dtOCZzJETEbL8quvS4Jts1va",
+	"redirect_uris":["http://localhost:3000/demo6Register"],
+	"javascript_origins":["http://192.168.1.92:3000","http://winwin.coderspreview.com:3000"]
+	}
+}

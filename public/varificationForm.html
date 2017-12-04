@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> ::: Win Win ::: </title>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <style type="text/css">
+      body{font-family: 'Lato', sans-sarif;}
+      .navbar-dark .navbar-brand{font-size: 1.55rem;}
+      .jumbotron{background:url(img/banner.jpg)no-repeat top center;background-size: 100%;position: relative;height: 450px;padding: 8rem 2rem;}
+      .display-3{font-size: 2.8em;}
+      .lead{width: 70%;}
+      .btn-primary {background-color: #EE163A !important;border-color: #EE163A !important;}
+      .card-text{font-weight: bold;}
+      .card-body p strike{font-weight: bold;width: 100%;float: left;color: #EE163A;
+        text-align: center;}
+      .btn-primary.focus, .btn-primary:focus{box-shadow: none !important;}
+      .card-body a{text-decoration: none;color: #212529;padding-bottom: 15px;float: left;}
+      .card-body{border-top:1px solid #cccccc;}
+      .card-body p span{font-size: 19px;}
+      .card img {height: auto;max-width: 86%;margin: 20px auto;}
+      .left-offer {font-size: 14px;color: #999999;padding-top: 30px;}
+      .free-shipping {color: #EE163A;font-size: 14px;}
+      @media screen and (max-width: 1024px){.jumbotron{padding: 2rem 1rem;height:auto;}}
+      @media (min-width: 992px){.navbar-expand-lg>.container{padding:0;}}
+      @media (min-width: 576px){.container{max-width: 100% !important;}}
+      @media screen and (max-width: 480px){.lead {width: 100%;font-size: 14px;}
+      .btn-group-lg>.btn, .btn-lg{font-size: 1rem;}
+      .display-3 {font-size: 1.5em;}
+      }
+      button {
+        cursor: pointer !important;
+        background-color: #EE163A !important;
+        border: none;
+        color: #FFF;
+      }
+       .lrspace{
+        padding: 0 15px;
+      }
+     
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Win Win : Bank Account Verification </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <br>
+    <!-- Page Content -->
+    <div class="container">
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var msg=location.search.split('msg=')[1];
+       var  msg=msg.replace('%22','');
+       var  msg=msg.replace('%22','');
+        $("#message").html(msg);
+        $('#message').html( $('#message').html().replace(/20/g, ""));
+        var email=location.search.split('email=')[1];
+       var  email=email.replace('%22','');
+       var  email=email.replace('%40','');
+        $("#message").html(email);
+        $('#message').html( $('#message').html().replace(/20/g, ""));
+      });
+
+    </script>
+      <!-- Page Features -->
+      <div class="alert alert-success alert-dismissable col-lg-12 col-md-6 mb-4">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong></strong><p id="message"></p>
+      </div>
+      <div class="row text-left">   
+        <div class="col-lg-6 col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+            <h>ACCOUNT VERIFICATION FORM</h4>
+              <div class="form-group lrspace">
+                <label for="amount1">Amount 1: </label>
+                <input type="text" class="form-control" id="amount1" placeholder="Enter Amount 1 " name="amount1" required>
+              </div> 
+              <div class="form-group lrspace">
+                <label for="amount2">Amount 2: </label>
+                <input type="text" class="form-control" id="amount2" placeholder="Enter Amount 2 " name="amount2" required>
+              </div> 
+            </div>
+            <div class="card-footer">
+              <!-- <form action="/api/products/stripe-charge5" method="POST"> -->
+              <form action="/api/products/stripe-verify" method="POST">
+              <!-- <form action="#" method="POST"> -->
+                <input type="hidden" name="amount1" value="" class="amount1">
+                <input type="hidden" name="amount2" value="" class="amount2">
+                <a href="#" class="" id="linkButton1"><button type="submit" class="btn btn-success" name="verify_amount" onclick="return setData()">Verify</button></a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Win Win 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function setData(){
+        $('.amount1').val($('#amount1').val());
+        $('.amount2').val($('#amount2').val());
+      }
+    </script>
+  </body>
+
+</html>

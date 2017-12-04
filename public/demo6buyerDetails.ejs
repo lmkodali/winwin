@@ -1,0 +1,1301 @@
+<html>
+<head>
+  <title>Win Win</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:url"           content="<%=share_link%>" />
+  <meta property="og:type"          content="website" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src = "https://plus.google.com/js/client:platform.js" async defer></script>
+  <script src="https://apis.google.com/js/plus.js?onload=init"></script>
+  <meta name="google-signin-client_id" content="631107722162-44iqf5t2q39n1pj43ibgsm15n34d806c.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js
+"></script>
+<!-- rating libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<!-- gmail account libraries -->
+<script src="https://apis.google.com/js/plus.js?onload=init"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="631107722162-44iqf5t2q39n1pj43ibgsm15n34d806c.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+
+
+  <style type="text/css">
+    .txt-mod{
+      text-align: center;color:#FFF;font-size: 22px;
+    }
+    .fl-right{
+      float: right;
+    }
+    .pad-spc{
+      padding-top: 11px;
+    }
+    .no-bor-radius{
+      border-radius: 0 !important;
+    }
+    .badge {
+      display: inline-block;
+      min-width: 10px;
+      padding: 10px 40px !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      line-height: 1;
+      color: #FFF !important;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-color: #337ab7 !important;
+      border-radius: 10px;
+    }
+    .navbar{
+      min-height: 60px !important;
+    }
+    .nav-tabs,.tab-content,.div-verify-btn{
+      margin: 0 20px;
+    }
+    .btn-group-justified,.table-bordered,.div-profile,.div-password,.div-invite,#recentTransaction,#socialmedia{
+      margin: 20px 0;
+    }
+    .div-verify-btn{
+        margin-top: 20px;
+    }
+    .verify{
+        width:150px;
+    }
+    .required{color:red;}
+    .topspc{
+        margin-top: 10px;
+    }
+    .error{color:red;}
+    .pad-left{padding-left: 0px !important; }
+    .col_sm_12{width:100%;}
+    .col_sm_4{width:33%;float:left;}
+    .text-center-red{color:red;}
+    .fb_share{padding-left:160px};
+    .bg{margin-left : 20px; margin-right : 20px ; background-color:#286090}
+    .liActive{color : white;}
+    .liActive:hover{color:rgba(255, 255, 255, 0.54)}
+    a:hover{text-decoration: none}
+    #transaction{margin-top:10px;}
+    .connection{background-color: #4267B2;color:white;padding:10px;border-radius:8px}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse no-bor-radius">
+  <div class="container-fluid pad-spc">
+    <div class="col-sm-4">
+      <div class="navbar-header txt-mod">
+        Win Win
+      </div>
+    </div>
+    <div class="col-sm-4 txt-mod">
+      Your Trust Score : <span class="badge"><%= trust_score %></span>
+    </div>
+    <div class="col-sm-4">
+      <div class="navbar-header txt-mod fl-right">
+        <!-- <button type="button" class="btn btn-danger" >Log Out</button> -->
+        <span style="font-size:12px;margin-right:15px;">Hi,  <%= name %></span>
+        <a href="/api/products/demo6Logout" class="btn btn-danger">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <% if(messages) { %>
+    <div class="col-sm-12">
+      <div class="alert alert-danger" id="msg_display_area">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+        <%= messages %>   
+      </div>
+    </div>
+  <% } %>
+<ul class="nav nav-tabs">
+  <input type="hidden" name="tab" value="<%= tab %>" id="tab">
+  <% if(tab=='profile') { %>
+    <li  class="active"><a data-toggle="tab" href="#profile">Profile</a></li> 
+  <% } else { %>
+    <li><a data-toggle="tab" href="#profile">Profile</a></li>
+  <% } %> 
+  <% if(tab=='bankaccounts') { %>
+    <li class="active"><a data-toggle="tab" href="#bankaccounts">Bank Accounts</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#bankaccounts">Bank Accounts</a></li>
+  <% }  %>
+  <% if(tab=='cards') { %>
+    <li class="active"><a data-toggle="tab" href="#cards">Credit Cards</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#cards">Credit Cards</a></li>
+  <% } %>
+  <% if(tab=='changepassword') { %>
+    <li class="active"><a data-toggle="tab" href="#changepassword">Change Password</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#changepassword">Change Password</a></li>
+  <% } %> 
+  <% if(tab=='invite') { %>
+    <li class="active"><a data-toggle="tab" href="#inviteFriends">Invite Friends</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#inviteFriends">Invite Friends</a></li>
+  <% } %> 
+  <% if(tab=='socialmedia') { %>
+    <li class="active"><a data-toggle="tab" href="#socialmedia">Social Media</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#socialmedia">Social Media</a></li>
+  <% } %> 
+  <% if(tab=='recentTransaction') { %>
+    <li class="active"><a data-toggle="tab" href="#recentTransaction">Recent Transaction</a></li>
+  <% } else { %>
+    <li><a data-toggle="tab" href="#recentTransaction">Recent Transaction</a></li>
+  <% } %> 
+  
+</ul>
+
+<div class="tab-content">
+  <div id="profile" class="tab-pane fade in active">
+    <div class="col-sm-12 div-profile ">
+    <form action="/api/products/update_profile" name="update_profile" id="update_profile" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<%= buyer_id %>" id="id">
+        <div class="col-sm-4">
+            <b>Name</b>
+            <input type="text" name="name" id="name" class="form-control" value="<%=name%>"  placeholder="Your Name">
+        </div>
+        <div class="col-sm-4">
+            <b>Email</b>
+            <input type="text" name="email" id="email" class="form-control" value="<%=email %>" placeholder="Your Email" disabled>
+            <% if (email_status== 'verified'){%>
+            <% }  
+               else{ var type="email";%>
+                <a href="/api/products/sendMail/<%= email %>/<%= type %>" class="btn btn-danger topspc">Verify Email</a>
+             <% } %>
+        </div>
+        <div class="col-sm-4">
+            <b>Mobile</b>
+            <input type="text" name="mobile" id="mobile" class="form-control" value="<%=phone %>" placeholder="Your Mobile" disabled>
+            <% if (phone_status== 'verified'){%>
+            <% }  
+               else{ var typeotp="otp"; %>
+                <a href="/api/products/sendMail/<%= email %>/<%= typeotp %>" class="btn btn-danger topspc">Send OTP</a>
+                <a class="btn btn-danger topspc" data-toggle="modal" data-target="#verifyOTP">Verify Mobile</a>
+            <% } %>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="col-sm-4">
+            <b>Address</b>
+            <textarea placeholder="Your address" rows="3" name="address" id="address" class="form-control"><%=address%>
+            </textarea>
+        </div>
+        <div class="col-sm-4">
+            <b>Country</b>
+            <input type="text" name="country" id="country" class="form-control" value="<%=country %>" placeholder="Your Country">
+        </div>
+        <div class="col-sm-4">
+            <b>City</b>
+            <input type="text" name="city" id="city" class="form-control" value="<%= city %>" placeholder="Your City">
+        </div>
+    </div>
+    <div class="col-sm-12 div-profile">
+        <div class="col-sm-4">
+            <b>Zip Code</b>
+            <input type="text"  name="zip_code" id="zip_code" class="form-control" value="<%=zip_code%>" placeholder="Enter Zip Code">
+        </div>
+        <div class="col-sm-4">
+            <b>Photo ID/ SSN / Driver License</b>
+            <!-- <input type="file" name="unique_id" id="unique_id" class="form-control" 
+            value="<%= unique_id %>"> -->
+            <input type="text" name="unique_id" id="unique_id" class="form-control" 
+            value="<%= unique_id %>">
+        </div>
+        <div class="col-sm-4">
+            <b>Education or Employer Details</b>
+            <input type="text" class="form-control" name="edu_emp" id="edu_emp" value="<%= edu_emp %>">
+        </div>  
+    </div>
+    <div class="col-sm-12 div-verify-btn ">
+        <button class="btn btn-success" name="update" id='update' type="submit">Update Profile</button>
+    </div>
+    </form>
+  </div>  
+  
+  <div id="bankaccounts" class="tab-pane fade">
+    <div class="btn-group btn-group-justified">
+      <a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addBankAccount">Add Bank Account</a>
+    </div>
+    <table class="table table-bordered" id="tblBankAccount">
+      <thead>
+        <tr>
+          <th width="15%">No</th> 
+          <th>Account Holder Name</th>
+          <th>Routing Number</th>
+          <th>Account Number</th>
+          <th width="15%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+       <% if(bankaccount.length>0) { %>
+           <% for(var m=0;m<bankaccount.length;m++) {%>
+          <tr>
+            <td><%= m+1 %></td>
+            <td><%= bankaccount[m].account_holder_name%></td>
+            <td><%= bankaccount[m].routing_number%></td>
+            <td><%= bankaccount[m].account_number%></td>
+            <% if(bankaccount[m].status=='verified') { %>
+              <td><button class="btn btn-success verify" id="<%=bankaccount[m].stripe_bank_account_id%>" value="<%=bankaccount[m].stripe_bank_account_id%>" onclick="goBuyDashboard(this.id)">Buy Now ?</button></td> 
+            <% } else { %>
+              <td>
+               <a class="btn btn-danger verify" onclick="loadVerifyModal('verify','<%=bankaccount[m].stripe_bank_account_id%>')" id="<%=bankaccount[m].stripe_bank_account_id%>">Verify? </a> </td>
+            <% } %>
+          </tr>
+          <% } }else { %>
+          <tr>
+            <td colspan="5">No records available.</td>
+          </tr>  
+       <% } %>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="cards" class="tab-pane fade">
+    <div class="btn-group btn-group-justified">
+      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCard">Add Card</a>
+    </div>
+    <table class="table table-bordered" id="tblCards">
+      <thead>
+        <tr>
+          <th width="15%">No</th> 
+          <th width="20%">Card Holder Name</th>
+          <th width="20%">Card Number</th>
+          <th width="15%">CVC</th>
+          <th width="15%">Expires</th>
+          <th width="15%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(cardDetails.length>0) { %>
+           <% for(var c=0;c<cardDetails.length;c++) {%>
+          <tr>
+            <td><%= c+1 %></td>
+            <td><%= cardDetails[c].card_holder_name%></td>
+            <td><%= cardDetails[c].card_number%></td>
+            <td><%= cardDetails[c].cvc%></td>
+            <td><%= cardDetails[c].expire_month%> / <%= cardDetails[c].expire_year%></td>
+            <td>
+              <a class="btn btn-success verify" onclick="alert('Page Under Development')" id="<%=cardDetails[c].stripe_card_token%>">Buy Now? </a>
+            </td>
+          </tr>
+        <% } }else { %>
+          <tr>
+            <td colspan="6">No records available.</td>
+          </tr>  
+       <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="changepassword" class="tab-pane fade">
+    <div class="col-sm-12 div-password ">
+      <form action="/api/products/demo6changePassword" name="changePassword_form" id="changePassword_form" method="post">
+          <div class="col-sm-12">
+            <div class="col-sm-4" style="padding-left:0px !important;">
+              <b>New Password</b>
+              <input type="password" name="new_password" id="new_password"  class="form-control">
+              <span class="error" id="errNewPassword"></span>
+            </div>
+            <div class="col-sm-4">
+              <b>Confirm Password</b>
+              <input type="password" name="confirm_password" id="confirm_password"  class="form-control">
+              <span class="error" id="errConfirmPassword"></span>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-success " style="margin-top:19px;" id="change_password">Change Password</button> 
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="inviteFriends" class="tab-pane fade">
+    <div class="col-sm-12 div-invite">
+      <form action="/api/products/inviteFriends" name="inviteFriends_form" id="inviteFriends_form" method="post">
+          <div class="col-sm-12 div-invite">
+              <h4 class="text-center text-center-red">INVITE FRIENDS FOR WINWIN</h4>
+              <h3 class="text-center text-center-red">Get +50 Trust Score Per Friend (Max 4).</h3>
+
+          </div>
+          <div class="col-sm-12 div-invite">
+            <div class="col-sm-4 text-center">
+              <img src="/img/share_social.png" width="150px" height="150px" alt="image not available"><br>
+              Send out your code
+            </div>
+            <div class="col-sm-4 text-center">
+              <img src="/img/register.png" width="150px" height="150px" alt="image not available"><br>
+              Your 4 friends registers WinWin
+            </div>
+            <div class="col-sm-4 text-center">
+              <img src="/img/cheers.png" width="150px" height="150px"><br>
+              You will get +50 trust_score per friend (Max 4).
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <input type="text" name="invite_link" id="invite_link" readonly="" class="form-control" value="<%= share_link%>">
+            <p style="font-size:10px;padding-top:5px;padding-left:5px">(COPY THIS LINK AND PASTE IN WEB BROWSER.)</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 fb_share">
+
+              <!-- <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a> -->
+              <div class="fb-share-button" data-href="<%=share_link%>" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <!-- <a href="https://www.facebook.com/" target="_blank"><img src="/img/inviteviafb.png" width="280px" height="60px" id="fbInvite"></a> -->
+            </div>
+            
+          </div>
+      </form>
+    </div>
+  </div>
+  <div id="socialmedia" class="tab-pane fade">
+  <% if(result.twitter_id){ %>
+    <div class="col-sm-12">
+      <h2 style="font-weight:900">Twitter Data</h2>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <label>Twitter Id </label>
+        <input type="text" name="twitter_id"  id="twitter_id" value="<%=result.twitter_id%>" class="form-control" readonly>
+      </div>
+      <div class="col-sm-4">
+        <label>Twitter Followers</label>
+        <input type="text" name="t_followers"  id="t_followers" class="form-control" value="<%=result.twitter_followers%>" class="form-control" readonly>
+      </div>
+      <div class="col-sm-4">
+          <label>Twitter Account Age(Days)</label>
+          <input type="text" class="form-control" id="t_age" name='t_age' value="<%=result.twitter_age%>" readonly>
+        </div>
+    </div>
+  <% } else { %>
+      <div class=""><a onclick="window.location.href='/api/products/twitter_authorize'"><img alt="Connect with Twitter" src="/img/twitter-login.gif"  style="height:50px;" id="twitter_connect"></a></div>
+  <% } %>
+  <% if(result.facebook_id){ %>
+    <div class="col-sm-12">
+      <h2 style="font-weight:900">Facebook :</h2><span class="connection">Connected</span> 
+    </div>
+  <% } else { %>
+  <div class="col-sm-12">
+      <h2 style="font-weight:900">Facebook :</h2>
+      <div class="sign_fb">
+        <a href="javascript:void(0);">
+         <img alt="" src="/img/connect-with-facebook.png" style="height:50px;" id="fbLogin">
+        </a>
+      </div>
+    </div>
+  <% } %>
+  <% if(result.gmail_id){ %>
+    <div class="col-sm-12">
+      <h2 style="font-weight:900">Gmail :</h2><span  style="background-color:#D34332 !important" class="connection" >Connected</span> 
+    </div>
+  <% } else { %>
+  <div class="col-sm-12">
+      <h2 style="font-weight:900">Gmail :</h2>
+        <div id="gSignIn"></div>
+    </div>
+  <% } %>
+  
+    <!-- <div id="gConnect" class="button">
+        <button class="g-signin"
+            data-scope=" profile email https://www.googleapis.com/auth/userinfo.profile
+              https://www.googleapis.com/auth/userinfo.email
+              https://www.googleapis.com/auth/plus.login 
+              https://www.googleapis.com/auth/user.birthday.read  
+              https://www.googleapis.com/auth/user.addresses.read 
+              https://www.googleapis.com/auth/profile.agerange.read "
+            data-clientid="631107722162-44iqf5t2q39n1pj43ibgsm15n34d806c.apps.googleusercontent.com"
+            data-callback="onSignInCallback"
+            data-theme="dark"
+            data-cookiepolicy="single_host_origin">
+        </button>
+        <div id='details'>
+        </div>
+        <a href="#" onclick="signOut();" class="btn btn-danger">Sign out</a>
+    </div>
+    <script>
+      function onSignInCallback(resp) {
+        gapi.client.load('plus', 'v1', apiClientLoaded);
+      }
+      function apiClientLoaded() {
+        gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+      }
+      function handleEmailResponse(resp) {
+        var primaryEmail;
+        for (var i=0; i < resp.emails.length; i++) {
+          if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
+        }
+            var response=JSON.stringify(resp);
+            console.log(resp);
+            document.getElementById('details').innerHTML+="Birthday : "+resp.birthday+'<br>';
+            document.getElementById('details').innerHTML="Gender : "+resp.gender+'<br>';
+            document.getElementById('details').innerHTML+="Birthday : <br>"+resp.birthday;
+            document.getElementById('details').innerHTML+="Kind : "+resp.kind+'<br>';
+            document.getElementById('details').innerHTML+='Emails : '+resp.emails[0].value+'<br>';
+            document.getElementById('details').innerHTML+="id :"+resp.id+'<br>';
+            document.getElementById('details').innerHTML+="displayName :"+resp.displayName+'<br>';
+            document.getElementById('details').innerHTML+="Family Name :"+resp.name.familyName+'<br>';
+            document.getElementById('details').innerHTML+="Given Name :"+resp.name.givenName+'<br>';
+            document.getElementById('details').innerHTML+="url :"+resp.url+'<br>';
+            document.getElementById('details').innerHTML+="isPlusUser :"+resp.isPlusUser+'<br>';
+            document.getElementById('details').innerHTML+="language :"+resp.language+'<br>';
+            document.getElementById('details').innerHTML+="circledByCount :"+resp.circledByCount+'<br>';
+            document.getElementById('details').innerHTML+="verified :"+resp.verified+'<br>';
+            document.getElementById('details').innerHTML+="Image:"+'<img src='+resp.image.url+' width="50px" height="50px">'+'<br>';
+       /*     document.getElementById('details').innerHTML+=response;*/
+      }
+    </script> -->
+
+  </div><!-- end social media -->
+  <div id="recentTransaction" class="tab-pane fade" >
+    <table class="table table-bordered" id="transaction">
+      <thead>
+        <tr style="background-color:black;color:white">
+          <th width="5%">No</th> 
+          <th width="15%">Transaction Id </th>
+          <th width="15%">Seller</th>
+          <th width="15%">Product Name</th>
+          <th width="10%">Amount</th>
+          <th width="5%">Ratings</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% if(transaction.length>0) { %>
+           <% for(var t=0;t<transaction.length;t++) {%>
+          <tr>
+            <td><%= t+1 %></td>
+            <td><%= transaction[t].stripe_payment_id%></td>
+            <td><%= transaction[t].seller_name %></td>
+            <td><%= transaction[t].product_name%></td>
+            <td>$ <%= transaction[t].transaction_amount%> USD</td>
+              <%if (transaction[t].buyer_rating > 0) {%>
+                   <td> <%= transaction[t].buyer_rating %>★</td>
+              <% } else {%>
+                  <td>
+                      <button type="button" class="btn btn-success" onclick="loadRateModal('<%= transaction[t].stripe_payment_id%>');">Rate Now</button>
+                  </td>
+              <% } %>
+          </tr>
+          <% } }else { %>
+          <tr>
+            <td colspan="7">No records available.</td>
+          </tr>  
+       <% } %>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add bank account modal -->
+<div id="addBankAccount" class="modal fade" role="dialog">
+  <form id="add_bank_account" action="/api/products/demo6AddBankAccount" method="post">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>Bank Details</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group lrspace">
+          <label for="routing_number">Routing Number<sup class="required">*</sup></label>
+          <input type="text" class="form-control" id="routing_number" name="routing_number">
+          <span class="error" id="errRoutingNumber"></span>
+        </div> 
+        <div class="form-group lrspace">
+          <label for="account_number">Account Number<sup class="required">*</sup></label>
+          <input type="text" class="form-control" id="account_number" name="account_number">
+          <span class="error" id="errAccNumber"></span>
+        </div> 
+        <div class="form-group lrspace">
+          <label for="account_holder_name">Account Holder Name<sup class="required">*</sup></label>
+          <input type="text" class="form-control" id="account_holder_name" name="account_holder_name">
+          <span class="error" id="errAccHolderName"></span>
+        </div> 
+        <div class="form-group lrspace">
+          <label>Account Holder Type<sup class="required">*</sup></label>
+          <select class="form-control" id="account_holder_type"  name="account_holder_type" style="cursor: pointer;" >
+            <option value=''>--Select Account Type--</option>
+            <option value="Individual">Individual</option>
+            <option value="Company">Company</option>
+          </select>
+          <span class="error" id="errAccHolderType"></span>
+        </div>
+       </div><!-- modal body  -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeaddBankDetails">Close</button>
+        <button type="button" class="btn btn-success" id="addBankDetails">Add Bank Account</button>
+      </div>
+    </div><!-- modal content -->
+ </div><!-- modal dialog -->
+ </form>
+</div><!-- modal -->  
+
+<!-- verify deposit modal -->
+<div id="verifyDeposits" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>Micro Deposits in cent</b></h4>
+      </div>
+      <div class="modal-body">
+        <form action="/api/products/demo6bankVerify" method="post">
+            <div class="form-group lrspace">
+              <label for="firstDeposit">First Deposit<sup class="required">*</sup></label>
+              <input type="text" class="form-control" id="firstDeposit" name="firstDeposit">
+              <span class="error" id="errFirstDeposit"></span>
+            </div> 
+            <div class="form-group lrspace">
+              <label for="secondDeposit">Second Deposit<sup class="required">*</sup></label>
+              <input type="text" class="form-control" id="secondDeposit" name="secondDeposit">
+              <span class="error" id="errSecondDeposit"></span>
+            </div> 
+       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeVerify">Close</button>
+        <input type="hidden" name="stripe_bank_account_id" class="stripe_bank_account_id">
+        <input type="hidden" name='deposit1'  class="deposit1" value="">
+        <input type="hidden" name='deposit2'  class="deposit2" value="">
+        <button type="submit" class="btn btn-success" id="verify_deposits">Verify</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- verify mobile otp modal -->
+<div id="verifyOTP" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>Mobile Verification</b></h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group lrspace">
+            <label for="otp">OTP<sup class="required">*</sup></label>
+            <input type="text" class="form-control" id="otp" placeholder="Enter OTP...">
+            <span class="error" id="errOTP"></span>
+          </div> 
+      </div>
+          <div class="modal-footer">
+            <form action="/api/products/verifyOTP" method="post">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeOTP">Close</button>
+              <input type="hidden" name="otpcode" class="otpcode" value="">
+              <button type="submit" class="btn btn-success" id="verify_otp">Verify</button>
+            </form>  
+          </div>
+      </div>
+    </div>
+</div>
+
+<!-- add card modal -->
+<div id="addCard" class="modal fade" role="dialog">
+  <form method="post" action="/api/products/demo6AddCard" id="addCard">
+    <div class="modal-dialog">
+       <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><b>Card Details</b></h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group lrspace">
+            <label for="card_holder_name">Card Holder Name<sup class="required">*</sup></label>
+            <input type="text" class="form-control" id="card_holder_name" name="card_holder_name">
+            <span class="error" id="errCardHolderName"></span>
+          </div> 
+          <div class="form-group lrspace">
+            <label for="card_number">Card Number<sup class="required">*</sup></label>
+            <input type="text" class="form-control" id="card_number" name="card_number">
+            <span class="error" id="errCardNumber"></span>
+          </div> 
+          <div class="form-group lrspace">
+            <label for="expire_date" style="text-align">Expires on<sup class="required">*</sup></label>  
+            <!-- <input type="date" name="expired_date" value="" class="form-control"> -->
+          <div class="input-group form-inline">
+            <div class="form-group">
+                <!-- <input type="text" class="form-control" placeholder="MinVal"> -->
+                <input type="number" name="expire_month" id="expire_month" min="1" max="12" placeholder="MM" class="form-control">   
+            </div>
+            <div class="form-group">    
+                 <!-- <input type="text" class="form-control" placeholder="MaxVal">    -->
+                 <input type="number" name="expire_year" id="expire_year" min="2017" max="2099" placeholder="YYYY" class="form-control">
+            </div>
+            <br><span class="error" id="errExpireMonth"></span><br>
+            <span class="error" id="errExpireYear"></span>
+          </div>
+          </div>
+          <div class="form-group lrspace" style="margin-top: 10px;">
+            <label for="cvc">CVC<sup class="required">*</sup></label>
+            <input type="text" class="form-control" id="cvc" name="cvc">
+            <span class="error" id="errCvc"></span>
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeCard">Close</button>
+          <button type="submit" class="btn btn-success" id="add_new_Card">Add Card </button>
+        </div>
+       </div>
+    </div>
+   </form>
+</div>
+
+<!-- Rate Now  modal -->
+<div id="rateUs" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>Ratings</b></h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group lrspace">
+            <!-- start -->
+              <div class="rateyo"></div>
+              <p class="rating" style="padding-left:5px"></p>
+            <!-- END -->
+          </div> 
+      </div>
+          <div class="modal-footer">
+            <form action="/api/products/demo6buyerrating" method="post">
+              <input type="hidden" value="" name="rating" id="rating" class="rating">
+              <input type="hidden" value="" name="stripe_payment_id" class="stripe_payment_id">
+              <input type="hidden" value="" name="stripe_customer_id" class="stripe_customer_id">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeRating">Close</button>
+              
+              <button type="submit" class="btn btn-success" id="rate">Rate</button>
+            </form>  
+          </div>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+      var rating = 0;
+      $(".rateyo").rateYo({
+        rating: rating,
+        numStars: 5,
+        precision: 2,
+        minValue: 1,
+        maxValue: 5
+      }).on("rateyo.change", function (e, data) {
+        console.log("CHINTAN : "+data.rating);
+        $(".rating").html(data.rating);
+        $(".rating").val(data.rating);
+        console.log(data.rating);
+      });
+  });
+  $('#closeRating').click(function(){
+      $('.rating').val(0);
+      $('.rating').html(0);
+      $(".rateyo").rateYo({
+        rating: rating,
+        numStars: 5,
+        precision: 2,
+        minValue: 1,
+        maxValue: 5
+      })
+  });
+  function loadRateModal(stripe_payment_id){
+    $('.stripe_payment_id').val(stripe_payment_id);
+    $('#rateUs').modal('show');
+  }
+</script>
+<script type="text/javascript">
+  /*$('#transaction').DataTable( {
+    columnDefs: [ {
+        targets: [ 0 ],
+        orderData: [ 0, 1 ]
+    }, {
+        targets: [ 1 ],
+        orderData: [ 1, 0 ]
+    }, {
+        targets: [ 4 ],
+        orderData: [ 4, 0 ]
+    } ]
+  });
+
+  $('#tblBankAccount').DataTable( {
+    columnDefs: [ {
+        targets: [ 0 ],
+        orderData: [ 0, 1 ]
+    }, {
+        targets: [ 1 ],
+        orderData: [ 1, 0 ]
+    }, {
+        targets: [ 4 ],
+        orderData: [ 4, 0 ]
+    } ]
+  });
+
+  $('#tblCards').DataTable( {
+    columnDefs: [ {
+        targets: [ 0 ],
+        orderData: [ 0, 1 ]
+    }, {
+        targets: [ 1 ],
+        orderData: [ 1, 0 ]
+    }, {
+        targets: [ 4 ],
+        orderData: [ 4, 0 ]
+    } ]
+  });*/
+  function goBuyDashboard(id)
+    {
+      var stripe_bank_account_id=id;
+      $.ajax({
+      type:'POST',
+      url: '/api/products/demo6BuynowDashboard',
+      data: {
+        id:stripe_bank_account_id},
+      success: function(data){
+        window.location.href='/demo6ProductList';return false;
+
+      },
+      error: function(error) {
+        console.log("error"+error);
+      }
+      });
+    }
+  function loadVerifyModal(type,bank_id){
+    $('.stripe_bank_account_id').val(bank_id);
+    $('#verifyDeposits').modal('show');
+  }
+  $(document).ready(function() {
+    //set tabs as active dynamically 
+    var tab=$('#tab').val();
+    if(tab=='profile')
+    {
+      $('#profile').addClass('in active');
+      $('#bankaccounts').removeClass('in active');
+      $('#cards').removeClass('in active');
+      $('#changepassword').removeClass('in active');
+    }
+     if(tab=='bankaccounts')
+    {
+      $('#bankaccounts').addClass('in active');
+      $('#profile').removeClass('in active');
+      $('#cards').removeClass('in active');
+      $('#changepassword').removeClass('in active');
+      $('#socialmedia').removeClass('in active');
+    }
+    if(tab=='cards')
+    {
+      $('#cards').addClass('in active');
+      $('#bankaccounts').removeClass('in active');
+      $('#profile').removeClass('in active');
+      $('#changepassword').removeClass('in active');
+      $('#socialmedia').removeClass('in active');
+    }
+    if(tab=='changepassword')
+    {
+      $('#cards').removeClass('in active');
+      $('#bankaccounts').removeClass('in active');
+      $('#profile').removeClass('in active');
+      $('#changepassword').addClass('in active');
+      $('#socialmedia').removeClass('in active');
+    }
+    if(tab=='recentTransaction')
+    {
+      $('#recentTransaction').addClass('in active');
+      $('#profile').removeClass('in active');
+      $('#bankaccounts').removeClass('in active');
+      $('#cards').removeClass('in active');
+      $('#changepassword').removeClass('in active');
+      $('#socialmedia').removeClass('in active');
+    }
+
+    if(tab=='socialmedia')
+    {
+      $('#recentTransaction').removeClass('in active');
+      $('#profile').removeClass('in active');
+      $('#bankaccounts').removeClass('in active');
+      $('#cards').removeClass('in active');
+      $('#changepassword').removeClass('in active');
+      $('#socialmedia').addClass('in active');
+    }
+  });
+  function emailverification(url){
+    window.location.href=url;
+  }
+  //hide message
+  setTimeout(function(){
+      $('#msg_display_area').fadeOut(2000);
+   }, 2000);
+
+    //verify otp validation
+    $('#verify_otp').click(function(){
+      $('#errOTP').html(""); 
+      otpCode=$("#otp").val();
+      if(otpCode==''){
+        $('#errOTP').html("OTP code required.");
+        return false;
+      }
+      else{
+        $('#errOTP').html(""); 
+        $('.otpcode').val(otpCode);
+      }
+    });
+
+    // Verify Deposit Validation
+    $('#verify_deposits').click(function(){
+        console.log("In Verify Deposit")
+        var deposit1=$("#firstDeposit").val();
+        var deposit2=$("#secondDeposit").val();
+        var str = "123456789";
+        var patt1 = /[0-9]/g;
+        var result = deposit1.match(patt1);        
+        if(deposit1==""){
+            $('#errFirstDeposit').html("Deposit-1 required.");
+        }
+        else{
+            $('#errFirstDeposit').html("");
+            if(isNaN(deposit1) == true) {
+                $('#errFirstDeposit').html("Only digits allowed.");
+                
+            }
+            else{
+                $('#errFirstDeposit').html('');
+            } 
+        }       
+        if(deposit2==''){
+            $('#errSecondDeposit').html('Deposit-2 required.');
+        }   
+        else{
+            $('#errSecondDeposit').html('');
+            if(isNaN(deposit2)==true){
+                $('#errSecondDeposit').html("Only digits allowed.");
+            }
+            else{
+                $('#errSecondDeposit').html('');
+            }
+        }            
+        if(deposit1!='' || deposit2!='' || isNaN(deposit1)!=true || isNaN(deposit2)!=true ){
+            $('.deposit1').val(deposit1);
+            $('.deposit2').val(deposit2);     
+        }       
+        else{
+            return false;
+        }
+    });
+    //End Verify Deposit Validation
+    $('#closeVerify').click(function(){
+        $('#firstDeposit').val('');
+        $('#secondDeposit').val('');
+    });
+    $('#closeOTP').click(function(){
+        $('#otp').val('');
+    });
+    $('#closeCard').click(function(){
+        $('#card_holder_name').val('');
+        $('#card_number').val('');
+        $('#expire_month').val('');
+        $('#expire_year').val('');
+        $('#cvc').val('');
+    });
+    $('#closeaddBankDetails').click(function(){
+        $('#routing_number').val('');
+        $('#account_number').val('');
+        $('#account_holder_name').val('');
+        $('#account_holder_type').val(0);
+    });
+    $('#btnCloseCard').click(function(){
+        $('#card_holder_name').val('');
+        $('#card_number').val('');
+        $('#expire_date').val('');
+        $('#cvv').val('');
+    });
+    
+    //Start Add bank account validation
+    $('#addBankDetails').click(function(){
+        console.log("In Add bank account details");
+        var routingNumber=$('#routing_number').val();
+        var accountNumber=$('#account_number').val();
+        var accountHolderName=$('#account_holder_name').val();
+        var accountHolderIndex=$('#account_holder_type :selected').index();
+        var accountHolderType=$('#account_holder_type :selected').html();
+        var routn_status=0;
+        var accnum_status=0;
+        var accholdername_status=0;
+        var accholdertype_status=0;
+        if(routingNumber==''){
+          $('#errRoutingNumber').html('Routing number required.');
+          routn_status=0;
+        }
+        else{
+            $('#errRoutingNumber').html('');
+            if(isNaN(routingNumber)==true){
+              $('#errRoutingNumber').html("Only digits allowed.");
+              routn_status=0;
+            }
+            else{
+                $('#errRoutingNumber').html('');
+                  if(routingNumber.length != 9){
+                    $('#errRoutingNumber').html('Routing number length should be 9.');
+                    routn_status=0;
+                  }
+                else{
+                  $('#errRoutingNumber').html('');
+                  if(routingNumber.charAt(0)=='5'){
+                    $('#errRoutingNumber').html("Routing number can't start with 5.");  
+                    routn_status=0;
+                  }
+                  else{
+                  $('#errRoutingNumber').html('');
+                  routn_status=1;
+                  }
+                }
+              }
+            }
+            if(accountNumber==''){
+              $('#errAccNumber').html("Account number required.");
+              accnum_status=0;
+            }
+            else{
+              $('#errAccNumber').html("");
+              if(isNaN(accountNumber)==true){
+                $('#errAccNumber').html("Only digits allowed.");
+                accnum_status=0;
+              }
+              else{
+                $('#errAccNumber').html("");  
+                if(accountNumber.length<2){
+                  $('#errAccNumber').html("Minimum 2 digits required.");
+                  accnum_status=0;
+                }
+                else{
+                  $('#errAccNumber').html("");
+                  accnum_status=1;
+                }
+              }
+            }
+            if(accountHolderName==''){
+              $('#errAccHolderName').html("Account holder name required.");
+              accholdername_status=0;
+            } 
+            else{
+              if(isNaN(accountHolderName)==false) {
+                $('#errAccHolderName').html("No digits allowed.");
+                accholdername_status=0;
+              }
+              else{
+                $('#errAccHolderName').html('');
+                accholdername_status=1;
+                }
+              }
+            if(accountHolderIndex=='0'){
+              $('#errAccHolderType').html('Please select account type.');
+              accholdertype_status=0;
+            }
+            else{
+              $('#errAccHolderType').html('');
+              if(accountHolderType==""){
+                $('#errAccHolderType').html('Please select account type.');   
+                accholdertype_status=0;
+              }
+              else{
+                 $('#errAccHolderType').html('');   
+                accholdertype_status=1;
+              }
+            }
+            if(routn_status==0 || accnum_status==0 || accholdername_status==0 || accholdertype_status==0)
+            {
+              return false;
+            }
+            else
+            {
+              $('#add_bank_account').submit();
+            }
+        });
+    //end bank account validation
+    //Change password validation
+    $("#change_password").click(function(){
+      var confirm_password = $('#confirm_password').val();
+        var new_password = $('#new_password').val();
+        if(new_password==''){
+          $('#errNewPassword').html("New password required.");
+          new_password_status=0;
+        }
+        else{
+        $('#errNewPassword').html(""); 
+        if(new_password.length<8 || new_password.length>15){
+          $('#errNewPassword').html("New password length should between 8-15."); 
+          new_password_status=0;
+        }
+        else{
+          $('#errNewPassword').html("");  
+          new_password_status=1;
+        }
+      }
+        if(confirm_password==''){
+          $('#errConfirmPassword').html("Confirm password required.");
+          confirm_password_status=0;
+        }
+        else{
+        $('#errConfirmPassword').html("");  
+        if(confirm_password.length<8 || confirm_password.length>15){
+          $('#errConfirmPassword').html("Confirm password length should between 8-15."); 
+          confirm_password_status=0;
+        }
+        else{
+          $('#errConfirmPassword').html("");  
+          confirm_password_status=1;
+        }
+      }
+      if(confirm_password_status && new_password_status)
+      {
+        if(new_password!=confirm_password){
+            $('#errConfirmPassword').html("Password and confirm password should be same.");  
+            return false;
+          }
+          else{
+            $('#errConfirmPassword').html("");  
+             $('#changePassword_form').submit();
+          }
+      }
+      else
+      {
+        return false;
+      }
+
+    });
+    //Start Add Card  validation
+    $('#add_new_Card').click(function(){
+        console.log("In Add Card details");
+        var card_number=$('#card_number').val();
+        var card_holder_name=$('#card_holder_name').val();
+        var expire_month=$('#expire_month').val();
+        var expire_year=$('#expire_year').val();
+        var cvc=$('#cvc').val();
+        var card_number_status=0;
+        var card_holder_name_status=0;
+        var expire_month_status=0;
+        var expore_year_status=0;
+        var cvc_status=0;
+        if(card_number==''){
+          $('#errCardNumber').html('Card number required.');
+          card_number_status=0;
+        }
+        else{
+            $('#errCardNumber').html('');
+            if(isNaN(card_number)==true){
+              $('#errCardNumber').html("Only digits allowed.");
+              card_number_status=0;
+            }
+            else{
+                $('#errCardNumber').html('');
+                  if(card_number.length <13 || card_number.length > 19){
+                    $('#errCardNumber').html('Card number length should between 13-19 .');
+                    card_number_status=0;
+                  }
+                else{
+                  $('#errCardNumber').html('');
+                  card_number_status=1;
+                  }
+            }
+        }    
+        if(card_holder_name==''){
+          $('#errCardHolderName').html("Card holder name required.");
+          card_holder_name_status=0;
+        } 
+        else{
+          if(isNaN(card_holder_name)==false) {
+            $('#errCardHolderName').html("No digits allowed.");
+            card_holder_name_status=0;
+          }
+          else{
+            $('#errCardHolderName').html('');
+            card_holder_name_status=1;
+          }
+        }
+        if(cvc==''){
+          $('#errCvc').html('CVC number required.');
+          cvc_status=0;
+        }
+        else{
+            $('#errCvc').html('');
+            if(isNaN(cvc)==true){
+              $('#errCvc').html("Only digits allowed.");
+              cvc_status=0;
+            }
+            else{
+                $('#errCvc').html('');
+                  if(cvc.length !=3){
+                    $('#errCvc').html('CVC length should be 3.');
+                    cvc_status=0;
+                  }
+                else{
+                  $('#errCvc').html('');
+                  cvc_status=1;
+                  }
+            }
+        }          
+        if(expire_month==""){
+          $('#errExpireMonth').html('Expire month required.');
+          expire_month_status=0;
+        }
+        else{
+          $('#errExpireMonth').html(''); 
+          expire_month_status=1;
+        }
+        if(expire_year==""){
+          $('#errExpireYear').html('Expire year required.');
+          expire_year_status=0;
+        }
+        else{
+          $('#errExpireYear').html(''); 
+          expire_year_status=1;
+        }
+        if(card_number_status==0 || card_holder_name_status==0 || expire_month_status==0 || expire_year_status==0 || cvc_status==0)
+        {
+          return false;
+        }
+        else
+        {
+          $('#addCard').submit();
+        }
+    });
+    //end bank account validation
+    
+    //Facebook Login
+    $("#fbLogin").click(function(){
+      function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        if (response.status === 'connected') {
+          testAPI();
+          }
+        else {
+          FB.login();
+          document.getElementById('status').innerHTML = 'Please log ' +'into this app.';    }
+        }
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+      });
+      }
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '158489271433981',
+          cookie     : true,  // enable cookies to allow the server to access the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.11' // use graph api version 2.8
+        });
+      FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+      });
+    };
+    // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        // FB.api('/me', function(response) {
+          // id,about,age_range,picture,bio,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work
+      FB.api('/me?fields=id,about,picture,verified,age_range,context,hometown,location,timezone,website,work,birthday,email,gender,middle_name,first_name,last_name', function(response) { 
+          console.log('Successful login for: ' + response.first_name);
+          console.log(JSON.stringify(response)); 
+          document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
+          Username=response.first_name+" "+response.last_name;
+          UserFbid=response.id;
+          userEmail = response.email;
+          $.ajax({
+            type:'POST',
+            url: '/api/products/connectFacebook',
+            data: {
+              id:response.id},
+            success: function(data){
+              window.location.href='/demo6ProductList';return false;
+
+            },
+            error: function(error) {
+              console.log("error"+error);
+            }
+          });
+          console.log(response);
+      });
+    }
+  });
+    </script>
+<!-- GMAIL SIGNIN -->
+<style>
+.profile{
+    border: 3px solid #B7B7B7;
+    padding: 10px;
+    margin-top: 10px;
+    width: 350px;
+    background-color: #F7F7F7;
+    height: 160px;
+}
+.profile p{margin: 0px 0px 10px 0px;}
+.head{margin-bottom: 10px;}
+.head a{float: right;}
+.profile img{width: 100px;float: left;margin: 0px 10px 10px 0px;}
+.proDetails{float: left;}
+</style>
+<script type="text/javascript">
+  function onSuccess(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    gapi.client.load('plus', 'v1', function () {
+        var request = gapi.client.plus.people.get({
+            'userId': 'me'
+        });
+        //Display the user details
+        request.execute(function (resp) {
+          console.log(resp);                                                    
+            var profileHTML = '<div class="profile"><div class="head">Welcome '+resp.name.givenName+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></div>';
+            profileHTML += '<img src="'+resp.image.url+'"/><div class="proDetails"><p>'+resp.displayName+'</p><p>'+resp.emails[0].value+'</p><p>'+resp.gender+'</p><p>'+resp.id+'</p><p><a href="'+resp.url+'">View Google+ Profile</a></p></div></div>';
+            $('.userContent').html(profileHTML);
+            $('#gSignIn').slideUp('slow');
+        });
+    });
+}
+function onFailure(error) {
+    console.log(error);
+}
+function renderButton() {
+    gapi.signin2.render('gSignIn', {
+        'scope': 'profile email https://mail.google.com/ \
+        https://www.googleapis.com/auth/gmail.modify \
+        https://www.googleapis.com/auth/gmail.readonly \
+        https://www.googleapis.com/auth/gmail.settings.basic',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+    });
+}
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $('.userContent').html('');
+        $('#gSignIn').slideDown('slow');
+    });
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<html>
+	<head>
+		<title>Twitter Login</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- <script src="/index.js" type="text/javascript"></script> -->
+		<!-- <script src="https://raw.githubusercontent.com/mdemblani/twitter-client/master/src/twitter-client.js" type="text/javascript"></script> -->
+	</head>
+	<body>
+	<form action="/api/products/twitter_authorize" method="get">
+		<button type="submit" value="Twitter" style="height:30px; width:150px;background-color: #46B2F4;border:0 ;border-radius:10px ;width:150px;height:30px;font-weight: 500;" >Connnect with Twitter 
+		</button>
+	</form>
+		
+		<!-- <button autofocus="true" onclick="twitter(this)">Connect Twitter</button>
+		<div id="authorize"></div>
+		<div id="access-section" style="visibility: hidden;">
+			<button id="accessButton" onclick="twitterAccess(this)">Get Twitter Access Token</button>
+			<div id="access"></div>
+		</div>
+		<div id="profile-section" style="visibility: hidden;">
+			<button id="profileButton" onclick="twitterProfile(this)">Get Twitter Profile</button>
+			<div id="profile"></div>
+		</div>
+		<script type="text/javascript">
+			window.twitterInit = twitterInit;
+				function twitterInit() {
+				    twttr.init({
+				        api_key: 'NhPGdDhZGSSxJZsUpAG0KRQYn',
+				        request_url: '/twitter'
+				    });
+				}
+
+				function displayAuthorizeSection(text) {
+					console.log("displayAuthorizeSection");
+				    document.getElementById('authorize').innerHTML = text;
+				    document.getElementById('access-section').style = null;
+				}
+
+				function displayProfileSection(text) {
+					console.log("displayProfileSection");
+				    document.getElementById('profile-section').style = null;
+				    document.getElementById('access').innerHTML = text;
+				}
+
+				var request = {};
+
+				function twitter(event) {
+				    console.log("twitter is called");
+				    twttr.connect(function (response) {
+				        console.log('response');
+				        console.log(response);
+				        if (response.success) {
+				            request = response;
+				            alert(request);
+				        } else {
+				            console.log("Twitter Login Error");
+				        }
+				        displayAuthorizeSection(JSON.stringify(response));
+				    })
+				}
+
+				function twitterAccess() {
+				    var xhr = new XMLHttpRequest();
+				    xhr.onreadystatechange = function () {
+				        if (this.readyState == 4) {
+				            if (this.status === 0) {
+				                displayProfileSection('Internet Disconnected/Connection Timeout');
+				            }
+				            var info;
+				            try {
+				                info = this.response;
+				            } catch (error) {
+				                info = error.message;
+				            } finally {
+				                displayProfileSection(info);
+				            }
+				            return;
+				        }
+				    };
+				    xhr.open("POST", "/access_token", true);
+				    xhr.setRequestHeader("Content-type", "application/json");
+				    xhr.send(JSON.stringify(request));
+				}
+
+				function twitterProfile() {
+				    var xhr = new XMLHttpRequest();
+				    xhr.onreadystatechange = function () {
+				        if (this.readyState == 4) {
+				            if (this.status === 0) {
+				                document.getElementById('profile').innerHTML = 'Internet Disconnected/Connection Timeout';
+				            }
+				            var info;
+				            try {
+				                info = this.response;
+				            } catch (error) {
+				                info = error.message;
+				            } finally {
+				                document.getElementById('profile').innerHTML = info;
+				            }
+				            return;
+				        }
+				    };
+				    xhr.open("GET", "/profile", true);
+				    xhr.setRequestHeader("Content-type", "application/json");
+				    xhr.send();
+				}
+		</script>
+		<script type="text/javascript">
+			(function (window) {
+
+					var api_key, oauth_token, request_url, popup;
+					var authorize_url = 'https://api.twitter.com/oauth/authenticate?oauth_token=';
+
+					function init(options) {
+						api_key = options.api_key;
+						request_url = options.request_url;
+					}
+
+					function closePopup() {
+						if (popup && !popup.closed) {
+							popup.close();
+						}
+					}
+
+					function getUrlQueryObject(query_string) {
+						var vars = {}, hash;
+						if (!query_string) {
+							return false;
+						}
+						var hashes = query_string.slice(1).split('&');
+						for (var i = 0; i < hashes.length; i++) {
+							hash = hashes[i].split('=');
+							vars[hash[0]] = hash[1];
+						}
+						return vars;
+					}
+
+					function sendError(message, callback) {
+						var response = {
+							success: false,
+							message: message || 'Some Error Occurred'
+						};
+						if (typeof callback === 'function') {
+							callback(response);
+						}
+					}
+
+					function getOAuthToken(callback) {
+						var xhr = new XMLHttpRequest();
+						xhr.onreadystatechange = function () {
+							if (this.readyState == 4) {
+								if (this.status === 0) {
+									return callback('Internet Disconnected/Connection Timeout')
+								}
+
+								try {
+									var response = JSON.parse(this.response);
+									callback(null, response);
+								} catch (error) {
+									callback(error.message);
+								}
+								return;
+							}
+						};
+						xhr.open("GET", request_url, true);
+						xhr.send();
+					}
+
+					function authorize(callback) {
+						if (!popup) {
+							return callback('Popup Not initialized');
+						}
+						popup.location.href = authorize_url + oauth_token;
+						var wait = function () {
+							setTimeout(function () {
+								return popup.closed ? callback(null, getUrlQueryObject(popup.location.search)) : wait();
+							}, 25);
+						};
+						wait();
+					}
+
+					function connect(callback) {
+						if (!request_url) {
+							return sendError('Request URL not provided', callback);
+						}
+						//Open a blank popup
+						popup = window.open(null, '_blank', 'height=400,width=800,left=250,top=100,resizable=yes', true);
+						//Get an oauth token from the callback url
+						getOAuthToken(function (error, response) {
+							if (error) {
+								closePopup();
+								return sendError(error, callback);
+							}
+
+							if (!response.success) {
+								closePopup();
+								return sendError(response.message, callback);
+							}
+							//Set the OAuth1 Token
+							oauth_token = response.oauth_token;
+							//Ask the user to authorize the app;
+							authorize(function (error, response) {
+								if (error) {
+									closePopup();
+									return sendError(error, callback);
+								}
+								if (!response || !response.oauth_token) {
+									closePopup();
+									return sendError('OAuth Token not Found', callback);
+								}
+
+								//Check if the oauth-token obtained in authorization, matches the original oauth-token
+								if (response.oauth_token !== oauth_token) {
+									return sendError('Invalid OAuth Token received from Twitter.', callback);
+								}
+
+								callback({
+									success: true,
+									oauth_token: response.oauth_token,
+									oauth_verifier: response.oauth_verifier
+								});
+							});
+						});
+					}
+
+					window.onload = function twitter() {
+						if (typeof window.twitterInit == 'function') {
+							window.twitterInit();
+						}
+					};
+
+					window.twttr = {
+						init: init,
+						connect: connect
+					};
+				})(window)
+		</script> -->
+		<!-- <script type="text/javascript">
+				!function(a){function g(a){b=a.api_key,d=a.request_url}function h(){e&&!e.closed&&e.close()}function i(a){var c,b={};if(!a)return!1;for(var d=a.slice(1).split("&"),e=0;e<d.length;e++)c=d[e].split("="),b[c[0]]=c[1];return b}function j(a,b){var c={success:!1,message:a||"Some Error Occurred"};"function"==typeof b&&b(c)}function k(a){var b=new XMLHttpRequest;b.onreadystatechange=function(){if(4!=this.readyState);else{if(0===this.status)return a("Internet Disconnected/Connection Timeout");try{var b=JSON.parse(this.response);a(null,b)}catch(b){a(b.message)}}},b.open("GET",d,!0),b.send()}function l(a){if(!e)return a("Popup Not initialized");e.location.href=f+c;var b=function(){setTimeout(function(){return e.closed?a(null,i(e.location.search)):b()},25)};b()}function m(b){return d?(e=a.open(null,"_blank","height=400,width=800,left=250,top=100,resizable=yes",!0),void k(function(a,d){return a?(h(),j(a,b)):d.success?(c=d.oauth_token,void l(function(a,d){return a?(h(),j(a,b)):d&&d.oauth_token?d.oauth_token!==c?j("Invalid OAuth Token received from Twitter.",b):void b({success:!0,oauth_token:d.oauth_token,oauth_verifier:d.oauth_verifier}):(h(),j("OAuth Token not Found",b))})):(h(),j(d.message,b))})):j("Request URL not provided",b)}var b,c,d,e,f="https://api.twitter.com/oauth/authenticate?oauth_token=";a.onload=function(){"function"==typeof a.twitterInit&&a.twitterInit()},a.twttr={init:g,connect:m}}(window);
+		</script> -->
+	</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+<style>
+body{font-family: 'Lato', sans-sarif;font-size: 15px;}
+.navbar-dark .navbar-brand{font-size: 1.55rem;}
+.login-main{
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.frm_center{
+  margin:5% 35% 0;
+  width:30%;
+  float: none;
+  
+}
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 30%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 1100px){
+.frm_center{width: 40%;margin:10% 30% 0;}
+}
+@media screen and (max-width: 1024px){
+.frm_center{width: 90%;margin:10% 5% 0;}
+}
+@media (min-width: 992px){.navbar-expand-lg>.container{padding:0;}}
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+<body class="login-main">
+<div class="frm_center">
+  <h2><center>Login</center></h2>
+
+<form action="/action_page.php">
+  <div class="imgcontainer">
+    <img src="img/user.jpg" alt="" class="avatar">
+  </div>
+
+  <div class="container">
+    <label><b>Email ID</b></label>
+    <input type="text" placeholder="Enter Email ID" name="vEmail">
+
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw">
+    <input type="checkbox" checked="checked"> Remember me
+    <button type="submit">Login</button>
+  </div>
+</form>  
+
+</div>
+
+
+</body>
+</html>
